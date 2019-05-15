@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <style>
+            th, td {
+                border-bottom: 1px solid #ddd;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div>Hello world</div>
+
+        <table>
+            <script type="text/javascript">
+                for(var i = 1; i <= 10; i++){
+                    document.writeln("<tr>");
+                    document.writeln("  <td>Hello World</td>");
+                    document.writeln("  <td>123456789</td>");
+                    document.writeln("</tr>");
+                }
+            </script>
+        </table>
+
+        <p>Input a number:</p>
+
+        <input id="numb">
+
+        <button type="button" onclick="myFunction()">Submit</button>
+
+        <p id="demo"></p>
+
+        <script>
+            function myFunction() {
+                var x, text;
+
+                // Get the value of the input field with id="numb"
+                x = parseInt(document.getElementById("numb").value);
+
+                x = x * 19;
+                // If x is Not a Number or less than one or greater than 10
+                if (isNaN(x) || x < 1 || x > 10) {
+                    text = "Input not valid";
+                } else {
+                    text = "Input OK";
+                }
+                document.getElementById("demo").innerHTML = x;
+            }
+        </script>
+
+        <img src="/Image/e58ae94b980935020cf27846d6490689.jpg">
+
+        <table border="1" cellpadding="5" cellspacing="5">
+            <tr>
+              <td rowspan="2">Cell 1</td> <td>Cell 2</td>
+            </tr>
+            <tr>
+              <td>Cell 4</td>
+            </tr>
+          </table>
+
+        <table border="1" cellpadding="5" cellspacing="5">
+            <tr>
+                <td colspan="2">Cell 1</td>
+            </tr>
+            <tr>
+                <td>Cell 3</td> <td>Cell 4</td>
+            </tr>
+        </table>
+
+        <table style="border: 1px; border-collapse: collapse">
+            <tr>
+                <th>Image</th>
+                <th>Laptop</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            <!-- Loop here-->
+            <tr>
+                <td>laptop123456.jpg</td>
+                <td>
+                    <table>
+                        <tr align="center">
+                            <td colspan="2">Cell 1</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th> 
+                            <td>Cell 4</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th> 
+                            <td>Cell 4</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th> 
+                            <td>Cell 4</td>
+                        </tr>
+                        <tr>
+                            <th>CPU</th> 
+                            <td>Cell 4</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>49,000,000 VND</td>
+                <td><input type="button" value="Add to Cart"></td>
+            </tr>
+            
+        </table>
+    </body>
+</html>
