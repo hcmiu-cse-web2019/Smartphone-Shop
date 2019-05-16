@@ -59,7 +59,7 @@
             
         
         <nav align="center" style="padding: 0.75% 0% 0.75% 0%;">
-            <form method="POST" action="ShoppingServlet">  
+            <form method="POST" action="Laptop">  
                 <b>Sort by &emsp;</b>
                 <select name="sortOption"align="center" style="padding: 0.35% 1.5% 0.35% 1.5%; font-size: 105%;">
                     <option name="sortOption" value="0">(None)</option>
