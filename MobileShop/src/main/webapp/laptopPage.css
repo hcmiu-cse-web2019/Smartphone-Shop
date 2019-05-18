@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 16, 2019, 12:46:10 PM
+    Author     : KiroHikaru
+*/
+body {
+    font-family: sans-serif;
+    margin: 0%;
+}
+
+header {
+    font-size: 200%;
+    background-color: #357234;
+    color: #FFFFFF;
+    padding: 0% 0% 0% 0%;
+}
+
+nav {
+    padding: 0.75% 0% 0.75% 0%;
+}
+
+footer {
+    text-align: center;
+    font-size: 100%;
+    background-color: #357234;
+    color: #FFFFFF;
+    padding: 20px 50px 20px 50px;
+}
+
+#search-form {
+    display:inline;
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+}
+
+#search-text {
+    margin: 0%;
+    border: 0%;
+    padding: 10px 20px;
+}
+
+#search-text:focus {
+    
+}
+
+
+#apply-button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 0.5% 1.75% 0.45% 1.75%;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+#apply-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#buy-button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+#buy-button:hover {
+    opacity: 1;
+    color: white;
+    cursor: pointer;
+}
+
+#category-button {
+    background-color: #6ce86a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+#category-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#login-button {
+    background-color: #357234;
+    border: none;
+    color: #cccccc;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.7;
+    transition: 0.3s;
+    vertical-align: middle;
+}
+
+#login-button:hover {
+    opacity: 1;
+    color: white;
+    cursor: pointer;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+}
+
+/* Left and right column */
+.column.side {
+    width: 15%;
+    text-align: center;
+    background-color: #50aa4e;
+}
+
+/* Middle column */
+.column.middle {
+    width: 70%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+        width: 100%;
+    }
+}
