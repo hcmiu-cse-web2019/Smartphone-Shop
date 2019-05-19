@@ -34,10 +34,10 @@
             </a>
             
             <form id="search-form" method="POST" action="Laptop">
-                <input type="text" id="search-text" name="searchText" value="Search Laptop..." onclick="removeText()">
-                <input type="submit" href="IMAGE/ICON/Search_25px.png" alt="Search">
-                <img src="IMAGE/ICON/Search_25px.png">
-                </input>
+                <input type="text" id="search-text" name="searchText" placeholder="Search..">
+                <button type="submit" id="search-button" alt="Search">
+                    <img src="IMAGE/ICON/Search_25px.png">
+                </button>
             </form>   
            
             <button id="login-button">
@@ -63,8 +63,7 @@
             <div class="column middle">
                 <form>
                     <table align="center" cellpadding="20px"
-                        style="border: 1px; 
-                            border-collapse: collapse;">
+                        style="border: 1px; border-collapse: collapse;">
                         <tr style="border-bottom: 1px solid #ddd; background-color: #F2F2F2;" onhover="background-color:#f5f5f5;">
                             <th>Image</th>
                             <th>Laptop</th>
@@ -118,7 +117,7 @@
             </div>
             <div class="column side">
                 <a href="http://www.saigonco-op.com.vn/?utm_source=VnExpress&utm_medium=statis&utm_campaign=C187335" target="_blank">
-                    Link here <img src="IMAGE/AD/banner1.png">Link here
+                    <img src="IMAGE/AD/banner1.png">
                 </a>   
             </div>
         </div>

@@ -46,7 +46,7 @@ public class LaptopServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
             /* TODO output your page here. You may use following sample code. */
-             if (request.getParameter("sortOption") != null){
+            if (request.getParameter("sortOption") != null){
             System.out.println("Get Option: " + request.getParameter("sortOption"));
             
             switch(Integer.parseInt(request.getParameter("sortOption"))){

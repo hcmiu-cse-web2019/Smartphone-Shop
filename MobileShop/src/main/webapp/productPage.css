@@ -48,6 +48,10 @@ footer {
     
 }
 
+.button {
+    
+}
+
 #search-button {
     margin: 0%;
     border: 0%;
@@ -134,7 +138,7 @@ footer {
 .column.side {
     width: 12.5%;
     text-align: center;
-/*    background-color: #50aa4e;*/
+    background-color: #50aa4e;
 }
 
 /* Middle column */
@@ -150,7 +154,7 @@ footer {
 }
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 0%) {
+@media screen and (max-width: 600px) {
     .column.side, .column.middle {
         width: 100%;
     }

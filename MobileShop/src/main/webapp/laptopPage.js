@@ -5,4 +5,5 @@
  */
 function removeText(){
     document.getElementById("search-text").value = "";
+    
 }
