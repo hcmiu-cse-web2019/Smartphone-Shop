@@ -1,6 +1,6 @@
 <%-- 
     Document   : HomePage
-    Created on : May 26, 2019, 11:10:23 PM
+    Created on : May 19, 2019, 11:21:37 PM
     Author     : ASUS
 --%>
 
@@ -9,24 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="laptopPage.css">
+        <link rel="stylesheet" type="text/css" href="homepage.css">
         <script src="laptopPage.js"></script>
         <title>HC Store</title>
-        <style>
-            table, th, td {
-                border: 1px solid #ffcccc;
-                border-collapse: collapse;
-                background-color: white;
-            }
-            .price {
-                color: red;
-            }
-           
-        </style>
     </head>
     <body style="background-color: seashell">
         <header>
-            <span style="padding-left: 2%; padding-right: 2%;">HC Store</span>
+            <span style="padding-left: 20%;">HC Store</span>
+            
+            <form id="search-form" method="POST" action="Laptop">
+                <input type="text" id="search-text" name="searchText" placeholder="Search..">
+                <button type="submit" id="search-button" alt="Search">
+                    <img src="IMAGE/ICON/Search_25px.png">
+                </button>
+            </form>   
    
             <a href="Laptop" style="text-decoration: none;">
                 <button id="category-button">
@@ -39,13 +35,6 @@
                     <img src="IMAGE/ICON/Touchscreen_25px.png">Smartphone
                 </button> 
             </a>
-            
-            <form id="search-form" method="POST" action="Laptop">
-                <input type="text" id="search-text" name="searchText" placeholder="Search..">
-                <button type="submit" id="search-button" alt="Search">
-                    <img src="IMAGE/ICON/Search_25px.png">
-                </button>
-            </form>   
            
             <button id="login-button">
                 <img src="IMAGE/ICON/Login_25px.png">Login
@@ -53,12 +42,16 @@
         </header>
         
         <br>
-        
         <div style="padding-left: 20%">
-                <a href="link here"><img style="cursor:pointer" src="IMAGE/AD/ipx.png" alt="ip" width="800" height="300"></a>
-                <div>Some ad here</div>
+        <table class="table1">
+            <tr>
+                <td>
+                    <a href="link here"><img style="cursor:pointer" src="IMAGE/AD/ipx.png" alt="ip" width="800" height="300"></a></td>
+                <td><div>Some ad here</div></td>
+            </tr>
+            
+        </table>
         </div>
-        
         <br>
             
         <div style ="padding-left: 20%">
@@ -150,4 +143,8 @@
             © Copyright 2019 Anh Huy. All rights reserved. <br>
             https://github.com/HCMIU-CSE-DATABASE2019/Laptop-Store
         </footer>
+        
+        
+        
+    </body>
 </html>

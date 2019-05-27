@@ -1,5 +1,3 @@
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -129,7 +127,7 @@ public class ShoppingServlet extends HttpServlet {
             String content = new String(Files.readAllBytes(file.toPath()));
             
             Class.forName("com.mysql.cj.jdbc.Driver");  
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop_store","root","tomnisa123");  	    
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop","root","15253511");  	    
             Statement statement = con.createStatement();  
 
             System.out.println("Executing SQL...");

@@ -155,3 +155,7 @@ footer {
         width: 100%;
     }
 }
+
+.price {
+    color: red;
+}

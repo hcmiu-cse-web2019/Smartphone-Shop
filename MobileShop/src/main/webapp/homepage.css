@@ -1,0 +1,103 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 27, 2019, 12:08:15 PM
+    Author     : ASUS
+*/
+table, th, td {
+    border: 1px solid #ffcccc;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.table1{
+    border: 1px solid #ffcccc;
+    border-collapse: collapse;
+    background-color: red;
+}
+.price {
+    color: red;
+}
+
+#search-form {
+    display:inline;
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+}
+
+#search-text {
+    margin: 0%;
+    border: 0%;
+    padding: 10px 20px;
+}
+
+#search-text:focus {
+
+}
+
+#search-button {
+    margin: 0%;
+    border: 0%;
+    background-color: #357234;
+}
+footer {
+    text-align: center;
+    font-size: 100%;
+    background-color: #357234;
+    color: #FFFFFF;
+    padding: 20px 50px 20px 50px;
+}
+body {
+    font-family: sans-serif;
+    margin: 0%;
+}
+
+header {
+    font-size: 200%;
+    background-color: #357234;
+    color: #FFFFFF;
+    padding: 0% 0% 0% 0%;
+}
+
+nav {
+    padding: 0.75% 0% 0.75% 0%;
+}
+
+#category-button {
+    background-color: #6ce86a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+#category-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#login-button {
+    background-color: #357234;
+    border: 0px;
+    color: #cccccc;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.7;
+    transition: 0.3s;
+    vertical-align: middle;
+}
+
+#login-button:hover {
+    opacity: 1;
+    color: white;
+    cursor: pointer;
+}
+
