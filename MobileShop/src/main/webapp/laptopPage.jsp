@@ -83,7 +83,7 @@
 
                             for (Laptop laptop : laptops){
                                 out.println("<tr cellpadding=\"30\" style=\"border-bottom: 1px solid #ddd;\">");
-                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE//LAPTOP//" + laptop.getImage() + "\"></td>");
+                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE//" + laptop.getImage() + "\"></td>");
                                 out.println("   <td>");
                                 out.println("       <table>");
                                 out.println("           <tr align=\"center\">");
