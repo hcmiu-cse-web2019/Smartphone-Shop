@@ -14,6 +14,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="laptopPage.css">
+        <link rel="stylesheet" type="text/css" href="header.css">
+        <link rel="stylesheet" type="text/css" href="nav.css">
+        <link rel="stylesheet" type="text/css" href="footer.css">
         <script src="laptopPage.js"></script>
         <title>HC Store - Laptop</title>
     </head>
@@ -21,7 +24,7 @@
         <header>
             <span style="padding-left: 2%; padding-right: 2%;">
                 <a href="HomePage.jsp">
-                    Hc Store
+                    HC Store
                 </a>
             </span>
             
@@ -69,13 +72,6 @@
                 <form>
                     <table align="center" cellpadding="20px"
                         style="border: 1px; border-collapse: collapse;">
-                        <tr style="border-bottom: 1px solid #ddd; background-color: #F2F2F2;" onhover="background-color:#f5f5f5;">
-                            <th>Image</th>
-                            <th>Laptop</th>
-                            <th>Price</th>
-                            <th></th>
-                        </tr>
-
                         <% 
                             List<Laptop> laptops = (ArrayList<Laptop>) request.getAttribute("laptops");
                             List<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
@@ -83,7 +79,7 @@
 
                             for (Laptop laptop : laptops){
                                 out.println("<tr cellpadding=\"30\" style=\"border-bottom: 1px solid #ddd;\">");
-                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE//" + laptop.getImage() + "\"></td>");
+                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE/LAPTOP/" + laptop.getImage() + "\"></td>");
                                 out.println("   <td>");
                                 out.println("       <table>");
                                 out.println("           <tr align=\"center\">");

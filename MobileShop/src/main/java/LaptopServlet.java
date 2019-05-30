@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,12 +6,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +28,13 @@ import org.springframework.util.ResourceUtils;
  */
 @WebServlet(urlPatterns = {"/Laptop"})
 public class LaptopServlet extends HttpServlet {
-    static String queryFile = "Option 0 - Show default laptop specification.sql";
+
+    static String queryFile = "Laptop List.sql";
+    static String searchString;
+    static String sortOption;
+    static Cookie[] cookies;
+    static Cookie searchTextCookie;
+    static Cookie sortOptionCookie;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,47 +48,29 @@ public class LaptopServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-            /* TODO output your page here. You may use following sample code. */
-            if (request.getParameter("sortOption") != null){
-            System.out.println("Get Option: " + request.getParameter("sortOption"));
-            
-            switch(Integer.parseInt(request.getParameter("sortOption"))){
-                case 0: {
-                    queryFile = "Option 0 - Show default laptop specification.sql";
-                    break;
-                }
-                case 1: {
-                    queryFile = "Option 1 - Sort by price ascending.sql";
-                    break;
-                }
-                case 2: {
-                    queryFile = "Option 2 - Sort by price descending.sql";
-                    break;
-                }
-                case 3: {
-                    queryFile = "Option 3 - Sort by brand name ascending.sql";
-                    break;
-                }
-                case 4: {
-                    queryFile = "Option 4 - Sort by brand name descending.sql";
-                    break;
-                }
-                default: {
-                    queryFile = "Option 0 - Show default laptop specification.sql";
-                    break;
-                }
-            }
-        }
-
-        showLaptop(request, response);
- 
-        RequestDispatcher rd = request.getRequestDispatcher("laptopPage.jsp");
-        rd.forward(request, response); 
+  
+//        if (searchTextCookie.getName() == null){
+//            searchTextCookie = new Cookie("searchText", null);
+//            response.addCookie(searchTextCookie);
+//            System.out.println("CREATE COOKIE");
+//        }
         
+        sortOption = request.getParameter("sortOption");
+        searchString = request.getParameter("searchText");
+
+        OptionSelector.sortOption = sortOption;
+        OptionSelector.searchString = searchString;
+
+        if (searchString != null) {
+            searchProduct(request, response, searchString);
+        } else {
+            showProduct(request, response);
+        }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("laptopPage.jsp");
+        rd.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -121,36 +107,48 @@ public class LaptopServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
-    public static void showLaptop(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
+    public static void searchProduct(HttpServletRequest request, HttpServletResponse response, String searchString) throws ServletException, IOException {
+        queryFile = "Option 0 - Show default laptop specification.sql";
+
+        System.out.println("Get input: " + request.getParameter("searchText"));
         System.out.println("Get Option: " + queryFile);
-        try{      
+        try {
+            //Connect to database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop", "root", "tomnisa123");
+            Statement statement = con.createStatement();
+
+            //Get text from file
             File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
             String content = new String(Files.readAllBytes(file.toPath()));
-            
-            Class.forName("com.mysql.cj.jdbc.Driver");  
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop","root","15253511");  	    
-            Statement statement = con.createStatement();  
 
-            System.out.println("Executing SQL...");
-           
-            ResultSet rs = statement.executeQuery(content);  
+            //Search Laptop
+            content += "AND CONCAT(laptopbrand.laptop_brand_name, ' ',brandseries.brand_series_name, ' ',laptop.laptop_model) LIKE '%" + searchString + "%'";
+
+            System.out.println("Get Sorting Option: " + sortOption);
+
+            //Sort laptop if available
+            content += getSortOption(sortOption);
+
+            ResultSet rs = statement.executeQuery(content);
+
             ResultSetMetaData rsmd = rs.getMetaData();
-              
-            List<Laptop> laptops = new ArrayList<Laptop>();
-            List<String> columnNames = new ArrayList<String>();
+
+            List<Laptop> laptops = new ArrayList<>();
+            List<String> columnNames = new ArrayList<>();
             int columnCount = rsmd.getColumnCount();
 
-            for (int i = 1; i <= columnCount; i++){
+            for (int i = 1; i <= columnCount; i++) {
                 columnNames.add(rsmd.getColumnName(i));
             }
-              
-            while(rs.next()) {
-                Laptop laptop = new Laptop();  
+
+            while (rs.next()) {
+                Laptop laptop = new Laptop();
 
                 laptop.setImage(rs.getString(1));
-                laptop.setFullName(rs.getString(2));           
+                laptop.setFullName(rs.getString(2));
                 laptop.setCpuModel(rs.getString(3));
                 laptop.setRam(rs.getString(4));
                 laptop.setGpuModel(rs.getString(5));
@@ -160,16 +158,83 @@ public class LaptopServlet extends HttpServlet {
                 laptop.setBattery(rs.getString(9));
                 laptop.setOs(rs.getString(10));
                 laptop.setPrice(rs.getString(11));
-                
+
                 laptops.add(laptop);
             }
-            
+
             request.setAttribute("columnNames", columnNames);
             request.setAttribute("laptops", laptops);
-            
-            con.close();  
-        } catch(Exception e){ 
+
+            con.close();
+        } catch (IOException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e);
-        }        
+        }
+    }
+
+    public static String getSortOption(String sortOption) {
+        if (sortOption != null) {
+            switch (Integer.parseInt(sortOption)) {
+                case 0: return "";
+                case 1: return "" + LaptopSortOption.PRICE_ASC.toString();
+                case 2: return "" + LaptopSortOption.PRICE_DESC.toString();
+                case 3: return "" + LaptopSortOption.BRAND_ASC.toString();
+                case 4: return "" + LaptopSortOption.BRAND_DESC.toString();
+                default: return "";
+            }
+        } else return " ";
+    }
+
+    public static void showProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Get DEFAULT OPTION: " + queryFile);
+        try {
+            //Connect to database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop", "root", "tomnisa123");
+            Statement statement = con.createStatement();
+      
+            //Get text from file
+            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            String content = new String(Files.readAllBytes(file.toPath()));
+            System.out.println(content);
+            content += getSortOption(sortOption);
+                      
+            //Execute SQL
+            System.out.println("Executing SQL...");
+            ResultSet rs = statement.executeQuery(content);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            List<Laptop> laptops = new ArrayList<>();
+            List<String> columnNames = new ArrayList<>();
+            int columnCount = rsmd.getColumnCount();
+
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames.add(rsmd.getColumnName(i));
+            }
+
+            while (rs.next()) {
+                Laptop laptop = new Laptop();
+
+                laptop.setImage(rs.getString(1));
+                laptop.setFullName(rs.getString(2));
+                laptop.setCpuModel(rs.getString(3));
+                laptop.setRam(rs.getString(4));
+                laptop.setGpuModel(rs.getString(5));
+                laptop.setHdd(rs.getString(6));
+                laptop.setSsd(rs.getString(7));
+                laptop.setDisplay(rs.getString(8));
+                laptop.setBattery(rs.getString(9));
+                laptop.setOs(rs.getString(10));
+                laptop.setPrice(rs.getString(11));
+
+                laptops.add(laptop);
+            }
+
+            request.setAttribute("columnNames", columnNames);
+            request.setAttribute("laptops", laptops);
+
+            con.close();
+        } catch (IOException | ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
     }
 }
