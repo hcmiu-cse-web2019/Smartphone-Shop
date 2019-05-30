@@ -20,7 +20,7 @@
             <form id="search-form" method="POST" action="Laptop">
                 <input type="text" id="search-text" name="searchText" placeholder="Search..">
                 <button type="submit" id="search-button" alt="Search">
-                    <img src="IMAGE/ICON/Search_25px.png">
+                <img src="IMAGE/ICON/Search_25px.png">
                 </button>
             </form>   
    
@@ -35,10 +35,12 @@
                     <img src="IMAGE/ICON/Touchscreen_25px.png">Smartphone
                 </button> 
             </a>
-           
-            <button id="login-button">
-                <img src="IMAGE/ICON/Login_25px.png">Login
-            </button>
+            
+            <a href="login.html" style="text-decoration: none;">
+                <button id="login-button">
+                    <img src="IMAGE/ICON/Login_25px.png">Login
+                </button>
+            </a>
         </header>
         
         <br>

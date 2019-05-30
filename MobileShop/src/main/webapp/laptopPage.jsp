@@ -19,7 +19,12 @@
     </head>
     <body>
         <header>
-            <span style="padding-left: 20%;">HC Store</span>
+            <span style="padding-left: 20%;">
+                <a href="HomePage.jsp">
+                    Hc Store
+                </a>
+            </span>
+            
    
             <a href="Laptop" style="text-decoration: none;">
                 <button id="category-button">
