@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2019, 10:43:00 AM
+    Author     : KiroHikaru
+*/
+nav {
+    padding: 0.75% 0% 0.75% 0%;
+}
+
+#apply-button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 0.5% 1.75% 0.45% 1.75%;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+#apply-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}

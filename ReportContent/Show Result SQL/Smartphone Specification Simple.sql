@@ -9,22 +9,16 @@ SELECT
         smartphone_model.name
 	) AS 'Name',
     
-	display_type.name AS 'Display Type',
-    CONCAT(display.size, ' inch') AS 'Display Size',
-    display.ratio AS 'Ratio',
-    display.resolution AS 'Resolution',
-    CONCAT(display.pixel_density, ' ppi') AS 'Pixel Density',
-	display.feature_description AS 'Display Feature',
- 
+	CONCAT(
+		display_type.name, ', ',
+        display.size, ' inch, ',
+        display.resolution 
+	) AS 'Display',
+    
 	CONCAT(
 		(SELECT DISTINCT  
 			GROUP_CONCAT(
-				front_camera.resolution, ' MP f/', 
-				front_camera.aperture, 
-                IF (front_camera.focal_length IS NOT NULL,
-					CONCAT(' ', front_camera.focal_length, 'mm'),
-                    ''
-                )
+				front_camera.resolution, ' MP'
 				SEPARATOR ' + '
 			)
 		FROM front_camera
@@ -36,12 +30,7 @@ SELECT
     CONCAT(
 		(SELECT DISTINCT  
 			GROUP_CONCAT(
-				back_camera.resolution, ' MP f/', 
-				back_camera.aperture,
-				IF (back_camera.focal_length IS NOT NULL,
-					CONCAT(' ', back_camera.focal_length, 'mm'),
-                    ''
-                )
+				back_camera.resolution, ' MP'
 				SEPARATOR ' + '
 			)
 		FROM back_camera
@@ -49,9 +38,6 @@ SELECT
         GROUP BY back_camera.camera_id
 		), ' ' 
     ) AS 'Back Camera',
-    
-    camera.feature_description AS 'Camera Feature',
-    camera.video_record_description AS 'Video',
     
     CONCAT(
 		os_stock_type.name, ' ',
@@ -66,9 +52,6 @@ SELECT
     CONCAT(
 		cpu_brand.name, ' ', cpu.name
     ) AS 'CPU',
-
-    cpu.frequency AS 'Core Frequency',
-    integrated_gpu.name AS 'GPU',
     
 	IF (EXISTS (SELECT memory_card.smartphone_model_id FROM memory_card),
 		CONCAT(
@@ -84,44 +67,20 @@ SELECT
         'No' 
 	) AS 'Memory Card',
     
-	GROUP_CONCAT(DISTINCT sim_type.name SEPARATOR ', ') AS 'SIM',
+	CONCAT(
+		connection.mobile_network, ' (',
+		GROUP_CONCAT(DISTINCT sim_type.name SEPARATOR ', '), ')'
+	) AS 'SIM',
 
-    connection.mobile_network AS 'Mobile Network',
-    connection.wlan_network AS 'WLAN',
-    connection.bluetooth AS 'Bluetooth',
-    IF(headphone_jack_type.name IS NOT NULL, 
-		headphone_jack_type.name, 
-        'No'
-	) AS 'Headphone Jack',
-	
-	GROUP_CONCAT(DISTINCT security_type.name SEPARATOR ', ') AS 'Unlock Security',
-    
     CONCAT(
-		'Body: ', body_protection.material, ' | ',
-		'Frame: ', frame_protection.material, ' | ',
-        'Screen: ', screen_protection.material
-	) AS 'Protection',
-    
-    CONCAT(
-		'Width ', design.width, ' mm | ',
-        'Height ', design.height, ' mm | ',
-        'Thickness ', design.thickness, ' mm'
-    ) AS 'Size',
-    
-    CONCAT(design.weight, 'g') AS 'Weight',
-    IF(design.feature_description IS NOT NULL,
-		design.feature_description,
-        'No'
-	) AS 'Feature Description',
-    
-    CONCAT(battery.capacity, ' mAh') AS 'Battery Capacity',
-    battery_type.name AS 'Battery Type',
-    IF (quick_charge_type.name IS NOT NULL,
-		quick_charge_type.name,
-        'No'
-	) AS 'Quick Charge',
-    charging_port.name AS 'Charging Port'
-    
+		battery_type.name, ' ', 
+		battery.capacity, ' mAh',
+        IF (quick_charge_type.name IS NOT NULL,
+			CONCAT(', ', quick_charge_type.name),
+			''
+		) 
+	) AS 'Battery'
+
 FROM
 	smartphone_model
     
@@ -139,25 +98,19 @@ LEFT JOIN os_modifier_type			ON operating_system.os_mod_type_id				= os_modifier
 
 LEFT JOIN cpu						ON smartphone_model.cpu_id						= cpu.cpu_id
 LEFT JOIN cpu_brand 				ON cpu.cpu_brand_id 							= cpu_brand.cpu_brand_id
-LEFT JOIN integrated_gpu 			ON cpu.igpu_id 									= integrated_gpu.igpu_id
+
 LEFT JOIN memory_card	 			ON smartphone_model.smartphone_model_id			= memory_card.smartphone_model_id
 LEFT JOIN memory_card_type			ON memory_card.mem_card_type_id					= memory_card_type.mem_card_type_id
 LEFT JOIN memory_slot_type			ON memory_card.mem_slot_type_id					= memory_slot_type.mem_slot_type_id
+
 LEFT JOIN sim						ON smartphone_model.smartphone_model_id			= sim.smartphone_model_id
 LEFT JOIN sim_type					ON sim.sim_type_id								= sim_type.sim_type_id	
 LEFT JOIN connection				ON smartphone_model.smartphone_model_id			= connection.smartphone_model_id
-LEFT JOIN headphone_jack_type		ON connection.headphone_jack_type_id			= headphone_jack_type.headphone_jack_type_id
 
 LEFT JOIN unlock_security 			ON smartphone_model.smartphone_model_id			= unlock_security.smartphone_model_id
-LEFT JOIN security_type				ON unlock_security.security_type_id				= security_type.security_type_id
 
-LEFT JOIN design					ON smartphone_model.smartphone_model_id			= design.smartphone_model_id
-LEFT JOIN body_protection			ON design.body_protection_id					= body_protection.body_protection_id
-LEFT JOIN frame_protection			ON design.frame_protection_id					= frame_protection.frame_protection_id
-LEFT JOIN screen_protection			ON design.screen_protection_id					= screen_protection.screen_protection_id 	
 LEFT JOIN battery					ON smartphone_model.smartphone_model_id			= battery.smartphone_model_id
 LEFT JOIN battery_type				ON battery.battery_type_id						= battery_type.battery_type_id
 LEFT JOIN quick_charge_type			ON battery.quick_charge_type_id					= quick_charge_type.quick_charge_type_id
-LEFT JOIN charging_port				ON battery.charging_port_id						= charging_port.charging_port_id
 
 GROUP BY sim.smartphone_model_id, unlock_security.smartphone_model_id

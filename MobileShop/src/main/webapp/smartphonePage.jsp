@@ -4,6 +4,7 @@
     Author     : KiroHikaru
 --%>
 
+<%@page import="model.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Laptop"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,7 +15,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="smartphonePage.css">
+<<<<<<< HEAD
         <script src="laptopPage.js"></script>
+=======
+        <link rel="stylesheet" type="text/css" href="header.css">
+        <link rel="stylesheet" type="text/css" href="nav.css">
+        <link rel="stylesheet" type="text/css" href="footer.css">
+>>>>>>> 7fa39392c895d9e499dcab6395593abb56a9ce05
         <title>HC Store - Smartphone</title>
     </head>
     <body>
@@ -22,29 +29,29 @@
             
             <span style="padding-left: 20%;">
                 <a href="HomePage.jsp">
-                    Hc Store
+                    HC Store
                 </a>
             </span>
-   
+
             <a href="Laptop" style="text-decoration: none;">
                 <button id="category-button">
                     <img src="IMAGE/ICON/Laptop_25px.png">Laptop
                 </button> 
             </a>
-            
+
             <a href="Smartphone" style="text-decoration: none;">
                 <button id="category-button" >
                     <img src="IMAGE/ICON/Touchscreen_25px.png">Smartphone
                 </button> 
             </a>
-            
+
             <form id="search-form" method="POST" action="Laptop">
                 <input type="text" id="search-text" name="searchText" placeholder="Search..">
                 <button type="submit" id="search-button" alt="Search">
                     <img src="IMAGE/ICON/Search_25px.png">
                 </button>
             </form>   
-           
+
             <button id="login-button">
                 <img src="IMAGE/ICON/Login_25px.png">Login
             </button>
@@ -62,72 +69,50 @@
                 <input id="apply-button" type="submit" value="Apply">
             </form>
         </nav>
-        
-        <div class="row">
-            <div class="column side">Some AD here</div>
-            <div class="column middle">
-                This page is under development.
-<!--                <form>
-                    <table align="center" cellpadding="20px"
-                        style="border: 1px; border-collapse: collapse;">
-                        <tr style="border-bottom: 1px solid #ddd; background-color: #F2F2F2;" onhover="background-color:#f5f5f5;">
-                            <th>Image</th>
-                            <th>Laptop</th>
-                            <th>Price</th>
-                            <th></th>
-                        </tr>
 
-                        <% 
-//                            List<Laptop> laptops = (ArrayList<Laptop>) request.getAttribute("laptops");
-//                            List<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
-//                            String[] columnValues = new String[columnNames.size()];
-//
-//                            for (Laptop laptop : laptops){
-//                                out.println("<tr cellpadding=\"30\" style=\"border-bottom: 1px solid #ddd;\">");
-//                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE//LAPTOP//" + laptop.getImage() + "\"></td>");
-//                                out.println("   <td>");
-//                                out.println("       <table>");
-//                                out.println("           <tr align=\"center\">");
-//                                out.println("               <td colspan=\"2\" style=\"font-size: 130%; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);\"><b>" + laptop.getFullName() + "</b></td>");
-//                                out.println("           </tr>");
-//
-//                                //Get product's specification
-//                                columnValues[3] = laptop.getCpuModel();
-//                                columnValues[4] = laptop.getRam();
-//                                columnValues[5] = laptop.getGpuModel();
-//                                columnValues[6] = laptop.getHdd();
-//                                columnValues[7] = laptop.getSsd();
-//                                columnValues[8] = laptop.getDisplay();
-//                                columnValues[9] = laptop.getBattery();
-//                                columnValues[10] = laptop.getOs();
-//                                
-//                                //Display product's specification
-//                                for (int i = 3; i <= 10; i++){ 
-//                                    if (columnValues[i] != null){
-//                                        out.println("<tr>");
-//                                        out.println("   <th>" + columnNames.get(i - 1).toString() + "&emsp; </th>");
-//                                        out.println("   <td>" + columnValues[i] + "</td>");
-//                                        out.println("</tr>");
-//                                    }                  
-//                                }
-//
-//                                out.println("       </table>");
-//                                out.println("   </td>");
-//                                out.println("   <td style=\"font-size: 110%;\"><b>" + laptop.getPrice() + "</b></td>");
-//                                out.println("   <td><input id=\"buy-button\" type=\"submit\" value=\"Buy Now\"></td>");
-//                                out.println("</tr>");
-//                            }
-                        %>
-                    </table>  
-                </form>-->
-            </div>
+        <div class="row">
             <div class="column side">
                 <a href="http://www.saigonco-op.com.vn/?utm_source=VnExpress&utm_medium=statis&utm_campaign=C187335" target="_blank">
                     <img src="IMAGE/AD/banner1.png">
                 </a>   
             </div>
+
+            <div class="column middle">
+                <form>
+                    <table align="center" cellpadding="20px" style="border: 1px; border-collapse: collapse;">
+                        <%
+                            List<Product> productList = (ArrayList<Product>) request.getAttribute("productList");
+                            int productCount = Integer.parseInt(request.getAttribute("productCount").toString());
+ 
+                            out.println("<tr>");
+                            for (int i = 0; i < productCount; i++) {
+                                out.println("<td>");
+                                out.println("   <a href=\"#\">");
+                                out.println("       <table align=\"center\" style=\"text-align: center;\">");
+                                out.println("           <tr><td><img style=\"height: 300px;\"src=\"IMAGE/SMARTPHONE/" + productList.get(i).getImage() + "\"></td></tr>");
+                                out.println("           <tr><th>" + productList.get(i).getName() + "</th></tr>");
+                                out.println("           <tr><td>" + productList.get(i).getPrice() + "</td></tr>");
+                                out.println("       </table>");
+                                out.println("   </a>");
+                                out.println("</td>");
+
+                                if ((i + 1) % 4 == 0) {
+                                    out.println("</tr>");
+                                    out.println("<tr>");
+                                }
+                            }
+                            out.println("</tr>");
+                        %>
+                    </table>  
+                </form>
+            </div>
+            <div class="column side">
+                <a href="https://www.sendo.vn/su-kien/sinh-nhat-sendo?utm_source=eclick&utm_medium=cpm-adnet&utm_campaign=tq_pc-bannersky_event-sinhnhat7tuoi-display_na_na_na_na_na&shortlink=82a4efd7&pid=Display_eclick_cpm-adnet_tq_pc-bannersky_2_event-sinhnhat7tuoi-display_na_na_na_na_na_300519&c=Display_eclick_cpm-adnet_tq_pc-bannersky_2_event-sinhnhat7tuoi-display_na_na_na_na_na_300519&is_retargeting=true" target="_blank">
+                    <img src="IMAGE/AD/banner2.png">
+                </a>
+            </div>
         </div>
-        
+
         <footer>
             © Copyright 2019 Anh Huy. All rights reserved. <br>
             https://github.com/HCMIU-CSE-DATABASE2019/Laptop-Store
