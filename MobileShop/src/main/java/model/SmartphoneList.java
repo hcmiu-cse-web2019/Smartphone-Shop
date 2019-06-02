@@ -9,12 +9,14 @@ package model;
  *
  * @author KiroHikaru
  */
-public class Product {
+public class SmartphoneList {
     private String image;
     private String name;
     private String price;
+    private String modelId;
+    private String modifierId;
 
-    public Product() {}
+    public SmartphoneList() {}
 
     public String getImage() {
         return image;
@@ -38,6 +40,22 @@ public class Product {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(String id) {
+        this.modelId = id;
+    }
+
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
     }
     
 }

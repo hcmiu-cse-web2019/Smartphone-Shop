@@ -1,0 +1,186 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 2, 2019, 12:32:26 AM
+    Author     : KiroHikaru
+*/
+
+body {
+    font-family: sans-serif;
+    border: 0%;
+    padding: 0%;
+    margin: 0%;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+#search-text {
+    margin-right: 1.5%;
+    border: 0;
+    outline: none;
+    font-size: 100%;
+    width: 72.5%;
+    padding: 2% 0% 0% 2.5%;
+    border-radius: 100px;
+}
+
+#search-button {
+    background-color: #357234; 
+    color: white;
+    text-align: center;
+    opacity: 0.6;
+    transition: 0.3s;
+
+    margin: none;
+    border: none;
+    padding: 1% 1.25% 1% 1.25%;
+    border-radius: 100%;
+
+    outline: none;
+}
+
+#search-button:hover {
+    background-color: #000000;
+    opacity: 1;
+    cursor: pointer; 
+}
+
+#login-button {
+    background-color: #357234;
+    border: none;
+    color: white;
+    padding: 3% 10% 3% 10%;
+    border: none;
+    text-align: center;
+    font-size: 100%;
+    outline: none;
+    opacity: 0.6;
+    transition: 0.3s;
+    float: left;
+
+}
+
+#login-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#category-button {
+    background-color: rgba(108, 232, 106, 0.3);
+    border: none;
+    color: white;
+    padding: 1% 4% 1% 4%;
+    text-align: center;
+    font-size: 100%;
+    outline: none;
+    transition: 0.3s;
+    float: left;
+}
+
+#category-button:hover {
+    background-color: #56d11d;
+    opacity: 1;
+    cursor: pointer;
+}
+
+#apply-button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 0.5% 1.75% 0.45% 1.75%;
+    opacity: 0.6;
+    transition: 0.3s;
+    outline: none;
+}
+
+#apply-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "header-unused-1 title-name search category login header-unused-2"
+        "nav nav nav nav nav nav"
+        "side-1 middle middle middle middle side-2"
+        "side-1 middle middle middle middle side-2"
+        "footer footer footer footer footer footer";
+    grid-template-columns: 10% 10% 30% 30% 10% 10%;
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.container > div {
+    /*border: 1px dashed #888;*/
+    border: 0;
+}
+
+.header-unused-1 {
+    grid-area: header-unused-1;
+    background-color: #357234;
+}
+.title-name {
+    position: relative;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 200%;
+    grid-area: title-name;
+    background-color: #357234;
+    margin: 0%;
+    border: 0%;
+    padding: 0%;
+}
+.search {
+    grid-area: search;
+    background-color: #357234;
+}
+.category {
+    grid-area: category;
+    background-color: #357234;
+}
+.login {
+    grid-area: login;
+    background-color: #357234;
+}
+.header-unused-2 {
+    grid-area: header-unused-2;
+    background-color: #357234;
+}
+.nav {
+    grid-area: nav;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+.side-1 {
+    grid-area: side-1;
+}
+
+.middle {
+    grid-area: middle;
+}
+
+.side-2 {
+    grid-area: side-2;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: #357234;
+
+    color: #FFFFFF;
+    padding-top: 0.75%;
+    padding-bottom: 0.75%;
+
+    text-align: center;
+    font-size: 100%;
+}
+

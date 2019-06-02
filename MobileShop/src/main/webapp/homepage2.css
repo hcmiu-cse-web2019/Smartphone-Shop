@@ -1,0 +1,76 @@
+table, th, td {
+    border: 1px solid #ffcccc;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.table1{
+    border: 1px solid #ffcccc;
+    border-collapse: collapse;
+    background-color: red;
+}
+.price {
+    color: red;
+}
+
+body {
+    font-family: sans-serif;
+    border: 0%;
+    padding: 0%;
+    margin: 0%;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "header-unused-1 title-name search category login header-unused-2"
+        "nav nav nav nav nav nav"
+        "side-1 middle middle middle middle side-2"
+        "side-1 middle middle middle middle side-2"
+        "footer footer footer footer footer footer";
+    grid-template-columns: 10% 10% 30% 30% 10% 10%;
+    grid-template-rows: 7.5% 7.5% 37.5% 37.5% 10%;
+}
+.container > div {
+    border: 1px dashed #888;
+}
+
+.header-unused-1 {
+    grid-area: header-unused-1;
+}
+.title-name {
+    grid-area: title-name;
+}
+.search {
+    grid-area: search;
+}
+.category {
+    grid-area: category;
+}
+.login {
+    grid-area: login;
+}
+.header-unused-2 {
+    grid-area: header-unused-2;
+}
+.nav {
+    grid-area: nav;
+}
+.side-1 {
+    grid-area: side-1;
+}
+.middle {
+    grid-area: middle;
+}
+.side-2 {
+    grid-area: side-2;
+}
+.footer {
+    grid-area: footer;
+}

@@ -10,6 +10,8 @@ USE `smartphone`;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
  SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -32,7 +34,7 @@ CREATE TABLE `back_camera` (
   UNIQUE KEY `back_cam_id_UNIQUE` (`back_cam_id`),
   KEY `backcam_camera_id_idx` (`camera_id`),
   CONSTRAINT `backcam_camera_id` FOREIGN KEY (`camera_id`) REFERENCES `camera` (`camera_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,6 +55,14 @@ INSERT INTO `back_camera` VALUES (11,7,12,2.8,56);
 INSERT INTO `back_camera` VALUES (12,7,12,1.8,28);
 INSERT INTO `back_camera` VALUES (13,8,12,1.8,28);
 INSERT INTO `back_camera` VALUES (14,9,12,2.2,29);
+INSERT INTO `back_camera` VALUES (15,10,12,1.5,26);
+INSERT INTO `back_camera` VALUES (16,10,12,2.4,52);
+INSERT INTO `back_camera` VALUES (17,10,16,2.2,12);
+INSERT INTO `back_camera` VALUES (18,11,12,1.5,26);
+INSERT INTO `back_camera` VALUES (19,11,12,2.4,52);
+INSERT INTO `back_camera` VALUES (20,11,16,2.2,12);
+INSERT INTO `back_camera` VALUES (21,12,12,1.5,26);
+INSERT INTO `back_camera` VALUES (22,12,16,2.2,12);
 
 --
 -- Table structure for table `battery`
@@ -93,6 +103,9 @@ INSERT INTO `battery` VALUES (6,1,1821,3,3,'Qi wireless charging');
 INSERT INTO `battery` VALUES (7,1,2900,NULL,3,NULL);
 INSERT INTO `battery` VALUES (8,1,1960,NULL,3,NULL);
 INSERT INTO `battery` VALUES (9,1,2750,NULL,3,NULL);
+INSERT INTO `battery` VALUES (10,1,4100,1,2,'Fast wireless charging 15W, Power bank/Reverse wireless charging 9W');
+INSERT INTO `battery` VALUES (11,1,3400,1,2,'Fast wireless charging 15W, Power bank/Reverse wireless charging 9W');
+INSERT INTO `battery` VALUES (12,1,3100,1,2,'Fast wireless charging 15W, Power bank/Reverse wireless charging 9W');
 
 --
 -- Table structure for table `battery_type`
@@ -158,7 +171,7 @@ CREATE TABLE `camera` (
   UNIQUE KEY `camera_id_UNIQUE` (`camera_id`),
   KEY `camera_smartphone_model_id_idx` (`smartphone_model_id`),
   CONSTRAINT `camera_smartphone_model_id` FOREIGN KEY (`smartphone_model_id`) REFERENCES `smartphone_model` (`smartphone_model_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,6 +187,9 @@ INSERT INTO `camera` VALUES (6,6,'OIS, PDAF, Quad-LED dual-tone flash, HDR, Face
 INSERT INTO `camera` VALUES (7,7,'OIS, PDAF, 2x optical zoom, AF, Quad-LED dual-tone flash, HDR, Face detection','2160p@30fps, 1080p@30/60/120fps, 720p@240fps');
 INSERT INTO `camera` VALUES (8,8,'OIS, PDAF, Quad-LED dual-tone flash, HDR, Face detection, Panorama','2160p@30fps, 1080p@30/60/120fps, 720p@240fps');
 INSERT INTO `camera` VALUES (9,9,'OIS, PDAF, Dual-LED dual-tone flash, HDR, Face detection, Panorama','2160p@30fps, 1080p@60fps, 1080p@120fps, 720p@240fps');
+INSERT INTO `camera` VALUES (10,10,'Dual Pixel PDAF, OIS, AF, OIS, 2x Optical Zoom, LED flash, Auto-HDR, Panorama, Depth Sensor, Dual Video Call','2160p@60fps, 1080p@240fps, 720p@960fps, HDR, dual-video rec');
+INSERT INTO `camera` VALUES (11,11,'Dual Pixel PDAF, OIS, AF, OIS, 2x Optical Zoom, LED flash, Auto-HDR, Panorama, Depth Sensor, Dual Video Call','2160p@60fps, 1080p@240fps, 720p@960fps, HDR, dual-video rec');
+INSERT INTO `camera` VALUES (12,12,'Dual Pixel PDAF, OIS, LED flash, Auto-HDR, Panorama, Dual video call','2160p@60fps, 1080p@240fps, 720p@960fps, HDR, dual-video rec');
 
 --
 -- Table structure for table `charging_port`
@@ -232,6 +248,9 @@ INSERT INTO `connection` VALUES (6,'3G, 4G LTE Cat 16','Wi-Fi 802.11 a/b/g/n/ac,
 INSERT INTO `connection` VALUES (7,'3G, 4G LTE Cat 9','Wi-Fi 802.11 a/b/g/n/ac, dual-band, hotspot','4.2, A2DP, LE',2);
 INSERT INTO `connection` VALUES (8,'3G, 4G LTE Cat 9','Wi-Fi 802.11 a/b/g/n/ac, dual-band, hotspot','4.2, A2DP, LE',2);
 INSERT INTO `connection` VALUES (9,'3G, 4G LTE Cat 6','Wi-Fi 802.11 a/b/g/n/ac, dual-band, hotspot','4.2, A2DP, LE',1);
+INSERT INTO `connection` VALUES (10,'4G','Wi-Fi 802.11 a/b/g/n/ac/ax, dual-band, Wi-Fi Direct, hotspot','5.0, A2DP, LE, aptX',1);
+INSERT INTO `connection` VALUES (11,'4G','Wi-Fi 802.11 a/b/g/n/ac/ax, dual-band, Wi-Fi Direct, hotspot','5.0, A2DP, LE, aptX',1);
+INSERT INTO `connection` VALUES (12,'4G','Wi-Fi 802.11 a/b/g/n/ac/ax, dual-band, Wi-Fi Direct, hotspot','5.0, A2DP, LE, aptX',1);
 
 --
 -- Table structure for table `cpu`
@@ -443,6 +462,9 @@ INSERT INTO `design` VALUES (6,3,2,7,138.4,67.3,7.3,158,'IP67 dust/water resista
 INSERT INTO `design` VALUES (7,2,2,7,158.2,77.9,7.3,188,'IP67 dust/water resistant (up to 1 meter for 30 mins)');
 INSERT INTO `design` VALUES (8,2,2,7,138.3,67.1,7.1,138,'IP67 dust/water resistant (up to 1 meter for 30 mins)');
 INSERT INTO `design` VALUES (9,2,2,7,158.2,77.9,7.3,192,NULL);
+INSERT INTO `design` VALUES (10,3,2,5,157.6,74.1,7.8,175,'IP68 dust/water proof (up to 1.5 meters for 30 mins)');
+INSERT INTO `design` VALUES (11,3,2,5,149.9,70.4,7.8,157,'IP68 dust/water proof (up to 1.5 meters for 30 mins)');
+INSERT INTO `design` VALUES (12,3,2,5,149.9,70.4,7.8,157,'IP68 dust/water proof (up to 1.5 meters for 30 mins)');
 
 --
 -- Table structure for table `display`
@@ -480,6 +502,9 @@ INSERT INTO `display` VALUES (6,8,4.7,'750 x 1334','16:9',326,'Wide color gamut 
 INSERT INTO `display` VALUES (7,8,5.5,'1920 x 1080','16:9',401,'Wide color gamut | 3D Touch display & home button');
 INSERT INTO `display` VALUES (8,8,4.7,'750 x 1334','16:9',326,'Wide color gamut | 3D Touch display & home button');
 INSERT INTO `display` VALUES (9,8,5.5,'1920 x 1080','16:9',401,'3D Touch display');
+INSERT INTO `display` VALUES (10,7,6.4,'3040 x 1440','19:9',522,'HDR10+, Always-on display');
+INSERT INTO `display` VALUES (11,7,6.1,'3040 x 1440','19:9',550,'HDR10+, Always-on display');
+INSERT INTO `display` VALUES (12,7,5.8,'2280 x 1080','19:9',438,'HDR10+, Always-on display');
 
 --
 -- Table structure for table `display_type`
@@ -551,7 +576,7 @@ CREATE TABLE `front_camera` (
   UNIQUE KEY `front_cam_id_UNIQUE` (`front_cam_id`),
   KEY `frontcam_camera_id_idx` (`camera_id`) /*!80000 INVISIBLE */,
   CONSTRAINT `frontcam_camera_id` FOREIGN KEY (`camera_id`) REFERENCES `camera` (`camera_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -567,6 +592,10 @@ INSERT INTO `front_camera` VALUES (6,6,7,2.2,NULL);
 INSERT INTO `front_camera` VALUES (7,7,7,2.2,32);
 INSERT INTO `front_camera` VALUES (8,8,7,2.2,32);
 INSERT INTO `front_camera` VALUES (9,9,5,2.2,31);
+INSERT INTO `front_camera` VALUES (10,10,10,2.2,22);
+INSERT INTO `front_camera` VALUES (11,10,8,1.9,26);
+INSERT INTO `front_camera` VALUES (12,11,10,1.9,26);
+INSERT INTO `front_camera` VALUES (13,12,10,1.9,26);
 
 --
 -- Table structure for table `headphone_jack_type`
@@ -712,6 +741,9 @@ INSERT INTO `memory_card` VALUES (6,NULL,2,NULL);
 INSERT INTO `memory_card` VALUES (7,NULL,2,NULL);
 INSERT INTO `memory_card` VALUES (8,NULL,2,NULL);
 INSERT INTO `memory_card` VALUES (9,NULL,2,NULL);
+INSERT INTO `memory_card` VALUES (10,1,3,512);
+INSERT INTO `memory_card` VALUES (11,1,3,512);
+INSERT INTO `memory_card` VALUES (12,1,3,1024);
 
 --
 -- Table structure for table `memory_card_type`
@@ -777,7 +809,7 @@ CREATE TABLE `operating_system` (
   KEY `operatingsystem_os_mod_type_idx` (`os_mod_type_id`),
   CONSTRAINT `operatingsystem_os_mod_type_id` FOREIGN KEY (`os_mod_type_id`) REFERENCES `os_modifier_type` (`os_mod_type_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `operatingsystem_os_stock_type` FOREIGN KEY (`os_stock_type_id`) REFERENCES `os_stock_type` (`os_stock_type_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -796,6 +828,7 @@ INSERT INTO `operating_system` VALUES (9,7,1);
 INSERT INTO `operating_system` VALUES (10,8,1);
 INSERT INTO `operating_system` VALUES (11,9,1);
 INSERT INTO `operating_system` VALUES (12,10,1);
+INSERT INTO `operating_system` VALUES (13,5,6);
 
 --
 -- Table structure for table `os_modifier_type`
@@ -970,7 +1003,7 @@ CREATE TABLE `sim` (
   KEY `sim_sim_type_id_idx` (`sim_type_id`),
   CONSTRAINT `sim_sim_type_id` FOREIGN KEY (`sim_type_id`) REFERENCES `sim_type` (`sim_type_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `sim_smartphone_model_id` FOREIGN KEY (`smartphone_model_id`) REFERENCES `smartphone_model` (`smartphone_model_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -989,6 +1022,9 @@ INSERT INTO `sim` VALUES (9,6,3);
 INSERT INTO `sim` VALUES (10,7,3);
 INSERT INTO `sim` VALUES (11,8,3);
 INSERT INTO `sim` VALUES (12,9,3);
+INSERT INTO `sim` VALUES (13,10,3);
+INSERT INTO `sim` VALUES (14,11,3);
+INSERT INTO `sim` VALUES (15,12,3);
 
 --
 -- Table structure for table `sim_type`
@@ -1031,25 +1067,25 @@ CREATE TABLE `smartphone` (
   UNIQUE KEY `product_id_UNIQUE` (`product_id`),
   KEY `smartphone_smartphone_modifier_id_idx` (`smartphone_modifier_id`),
   CONSTRAINT `smartphone_smartphone_modifier_id` FOREIGN KEY (`smartphone_modifier_id`) REFERENCES `smartphone_modifier` (`smartphone_modifier_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `smartphone`
 --
 
-INSERT INTO `smartphone` VALUES (1,1,'Silver','636748771945549047_iPhone-Xs-Max-Sliver.png');
+INSERT INTO `smartphone` VALUES (1,1,'Silver','636748771945393060_iPhone-Xs-Max-Gold.png');
 INSERT INTO `smartphone` VALUES (2,1,'Space Gray','636748771942273320_iPhone-Xs-Max-Space-Gray.png');
-INSERT INTO `smartphone` VALUES (3,1,'Gold','636748771945393060_iPhone-Xs-Max-Gold.png');
-INSERT INTO `smartphone` VALUES (4,2,'Silver','636748771945549047_iPhone-Xs-Max-Sliver.png');
+INSERT INTO `smartphone` VALUES (3,1,'Gold','636748771945549047_iPhone-Xs-Max-Sliver.png');
+INSERT INTO `smartphone` VALUES (4,2,'Silver','636748771945393060_iPhone-Xs-Max-Gold.png');
 INSERT INTO `smartphone` VALUES (5,2,'Space Gray','636748771942273320_iPhone-Xs-Max-Space-Gray.png');
-INSERT INTO `smartphone` VALUES (6,2,'Gold','636748771945393060_iPhone-Xs-Max-Gold.png');
+INSERT INTO `smartphone` VALUES (6,2,'Gold','636748771945549047_iPhone-Xs-Max-Sliver.png');
 INSERT INTO `smartphone` VALUES (7,3,'Gold','636748771945393060_iPhone-Xs-Max-Gold.png');
 INSERT INTO `smartphone` VALUES (8,4,'Silver','636748771945549047_iPhone-Xs-White.png');
 INSERT INTO `smartphone` VALUES (9,4,'Space Gray','636748771942273320_iPhone-Xs-black.png');
-INSERT INTO `smartphone` VALUES (10,4,'Gold','636748771945393060_iPhone-Xs-gold');
+INSERT INTO `smartphone` VALUES (10,4,'Gold','636748771945393060_iPhone-Xs-gold.png');
 INSERT INTO `smartphone` VALUES (11,5,'Silver','636748771945549047_iPhone-Xs-White.png');
-INSERT INTO `smartphone` VALUES (12,5,'Gold','636748771945393060_iPhone-Xs-gold');
+INSERT INTO `smartphone` VALUES (12,5,'Gold','636748771945393060_iPhone-Xs-gold.png');
 INSERT INTO `smartphone` VALUES (13,6,'Black','636748797174925889_iphone-Xr-black.png');
 INSERT INTO `smartphone` VALUES (14,6,'Red','636748797175081877_iphone-Xr-red.png');
 INSERT INTO `smartphone` VALUES (15,6,'Yellow','636748797174925889_iphone-Xr-yellow.png');
@@ -1085,8 +1121,17 @@ INSERT INTO `smartphone` VALUES (44,15,'Black','b86bff56087c5aae4a2904033a314ed2
 INSERT INTO `smartphone` VALUES (45,15,'Gold','b86bff56087c5aae4a2904033a314ed2-iphone7-plus-gold.png');
 INSERT INTO `smartphone` VALUES (46,16,'Black','892ce08c86b4bbe637710522f9489aae-iphone7-black.png');
 INSERT INTO `smartphone` VALUES (47,16,'Gold','04a17edaca2b07a5aee55ef9cca3960e-iphone7-gold.png');
-INSERT INTO `smartphone` VALUES (48,17,'Black','90375518604b6972d727430c3bef8a24-iphone6s-plus-gold.png');
-INSERT INTO `smartphone` VALUES (49,17,'Gold','ca3dd1e04421065a3f08605aba97dfae-iphone6s-plus-rose-gold.png');
+INSERT INTO `smartphone` VALUES (48,17,'Gold','90375518604b6972d727430c3bef8a24-iphone6s-plus-gold.png');
+INSERT INTO `smartphone` VALUES (49,17,'Rose Gold','ca3dd1e04421065a3f08605aba97dfae-iphone6s-plus-rose-gold.png');
+INSERT INTO `smartphone` VALUES (50,18,'Prism Green','636863636051023338_ss-galaxy-s10-plus-ceramic-black.png');
+INSERT INTO `smartphone` VALUES (51,18,'Ceramic Black','636863659522918468_ss-galaxy-s10-plus-prism-green.png');
+INSERT INTO `smartphone` VALUES (52,18,'Prism White','636863648672228468_ss-galaxy-s10-plus-prism-white.png');
+INSERT INTO `smartphone` VALUES (53,19,'Ceramic Black','636863636051023338_ss-galaxy-s10-plus-ceramic-black.png');
+INSERT INTO `smartphone` VALUES (54,20,'Ceramic Black','636863636051023338_ss-galaxy-s10-plus-ceramic-black.png');
+INSERT INTO `smartphone` VALUES (55,21,'Prism White','636863643187455627_ss-galaxy-s10-prism-white.png');
+INSERT INTO `smartphone` VALUES (56,21,'Prism Green','636863653373578468_ss-galaxy-s10-prism-green.png');
+INSERT INTO `smartphone` VALUES (57,21,'Ceramic Black','636863621214675213_ss-galaxy-s10-ceramic-black.png');
+INSERT INTO `smartphone` VALUES (58,22,'Prism Black','636863622278818137_ss-galaxy-s10e-prism-black.png');
 
 --
 -- Table structure for table `smartphone_brand`
@@ -1188,7 +1233,7 @@ CREATE TABLE `smartphone_model` (
   CONSTRAINT `smartphonemodel_brand_series_id` FOREIGN KEY (`brand_series_id`) REFERENCES `smartphone_brand_series` (`brand_series_id`) ON UPDATE CASCADE,
   CONSTRAINT `smartphonemodel_cpu_id` FOREIGN KEY (`cpu_id`) REFERENCES `cpu` (`cpu_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `smartphonemodel_os_id` FOREIGN KEY (`os_id`) REFERENCES `operating_system` (`os_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1201,9 +1246,12 @@ INSERT INTO `smartphone_model` VALUES (3,1,'Xr',85,12,'2019-05-24');
 INSERT INTO `smartphone_model` VALUES (4,1,'X',84,11,'2018-05-24');
 INSERT INTO `smartphone_model` VALUES (5,1,'8 Plus',84,11,'2018-02-12');
 INSERT INTO `smartphone_model` VALUES (6,1,'8',84,11,'2018-02-12');
-INSERT INTO `smartphone_model` VALUES (7,1,'7 Plus',83,10,'2017-07-29');
+INSERT INTO `smartphone_model` VALUES (7,1,'7 Plus',83,10,'2017-07-30');
 INSERT INTO `smartphone_model` VALUES (8,1,'7',83,10,'2017-07-29');
 INSERT INTO `smartphone_model` VALUES (9,1,'6s Plus',82,9,'2015-03-08');
+INSERT INTO `smartphone_model` VALUES (10,11,'S10+',49,13,'2019-05-30');
+INSERT INTO `smartphone_model` VALUES (11,11,'S10',49,13,'2019-05-30');
+INSERT INTO `smartphone_model` VALUES (12,11,'S10e',49,13,'2019-05-30');
 
 --
 -- Table structure for table `smartphone_modifier`
@@ -1222,7 +1270,7 @@ CREATE TABLE `smartphone_modifier` (
   UNIQUE KEY `sp_modifier_id_UNIQUE` (`smartphone_modifier_id`),
   KEY `smartphonemodifier_smartphone_model_id_idx` (`smartphone_model_id`),
   CONSTRAINT `smartphonemodifier_smartphone_model_id` FOREIGN KEY (`smartphone_model_id`) REFERENCES `smartphone_model` (`smartphone_model_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1246,6 +1294,11 @@ INSERT INTO `smartphone_modifier` VALUES (14,6,'2','256',19990000);
 INSERT INTO `smartphone_modifier` VALUES (15,7,'2','32',12990000);
 INSERT INTO `smartphone_modifier` VALUES (16,8,'2','32',8990000);
 INSERT INTO `smartphone_modifier` VALUES (17,9,'2','32',8780000);
+INSERT INTO `smartphone_modifier` VALUES (18,10,'8','128',22990000);
+INSERT INTO `smartphone_modifier` VALUES (19,10,'8','512',28990000);
+INSERT INTO `smartphone_modifier` VALUES (20,10,'8','1024',33990000);
+INSERT INTO `smartphone_modifier` VALUES (21,11,'8','128',20990000);
+INSERT INTO `smartphone_modifier` VALUES (22,12,'6','128',15990000);
 
 --
 -- Temporary view structure for view `smartphone_specification_full`
@@ -1325,7 +1378,7 @@ CREATE TABLE `unlock_security` (
   KEY `unlocksecurity_security_type_id_idx` (`security_type_id`),
   CONSTRAINT `unlocksecurity_security_type_id` FOREIGN KEY (`security_type_id`) REFERENCES `security_type` (`security_type_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `unlocksecurity_smartphone_model_id` FOREIGN KEY (`smartphone_model_id`) REFERENCES `smartphone_model` (`smartphone_model_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1341,6 +1394,11 @@ INSERT INTO `unlock_security` VALUES (6,6,3);
 INSERT INTO `unlock_security` VALUES (7,7,3);
 INSERT INTO `unlock_security` VALUES (8,8,3);
 INSERT INTO `unlock_security` VALUES (9,9,3);
+INSERT INTO `unlock_security` VALUES (10,10,5);
+INSERT INTO `unlock_security` VALUES (11,10,8);
+INSERT INTO `unlock_security` VALUES (12,11,5);
+INSERT INTO `unlock_security` VALUES (13,11,8);
+INSERT INTO `unlock_security` VALUES (14,12,2);
 
 --
 -- Final view structure for view `cpu_specification_full`
@@ -1431,6 +1489,7 @@ INSERT INTO `unlock_security` VALUES (9,9,3);
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

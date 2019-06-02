@@ -7,7 +7,6 @@
  */
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,8 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Laptop;
-import model.Product;
+import model.SmartphoneList;
 import org.springframework.util.ResourceUtils;
 
 /**
@@ -33,7 +31,6 @@ import org.springframework.util.ResourceUtils;
  */
 @WebServlet(urlPatterns = {"/Smartphone"})
 public class SmartphoneServlet extends HttpServlet {
-
     static String queryFile = "Smartphone List.sql";
 
     /**
@@ -93,7 +90,7 @@ public class SmartphoneServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
     public static void showListProduct(HttpServletRequest request, HttpServletResponse response) {
         try {
             //Connect to database
@@ -108,31 +105,24 @@ public class SmartphoneServlet extends HttpServlet {
 
             ResultSetMetaData rsmd = rs.getMetaData();
 
-//            List<Laptop> laptops = new ArrayList<>();
-//            List<String> columnNames = new ArrayList<>();
-//            int columnCount = rsmd.getColumnCount();
-//
-//            for (int i = 1; i <= columnCount; i++) {
-//                columnNames.add(rsmd.getColumnName(i));
-//            }
-
             int productCount = 0;
-            List<Product> productList = new ArrayList<>();
+            List<SmartphoneList> productList = new ArrayList<>();
             
             while (rs.next()) {
-                Product product = new Product();
+                SmartphoneList product = new SmartphoneList();
                 productCount++;
                 
                 product.setImage(rs.getString(1));
                 product.setName(rs.getString(2));
                 product.setPrice(rs.getString(3));
+                product.setModelId(rs.getString(4));
+                product.setModifierId(rs.getString(5));
                 
                 productList.add(product);
             }
-            System.out.println("SMARTPHONE COUNT: " + productCount);
+            
             request.setAttribute("productCount", productCount);
             request.setAttribute("productList", productList);
-
 
             con.close();
         } catch (IOException | ClassNotFoundException | NumberFormatException | SQLException e) {

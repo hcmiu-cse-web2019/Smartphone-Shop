@@ -110,8 +110,6 @@ public class LaptopServlet extends HttpServlet {
     }
 
     public static void searchProduct(HttpServletRequest request, HttpServletResponse response, String searchString) throws ServletException, IOException {
-        queryFile = "Option 0 - Show default laptop specification.sql";
-
         System.out.println("Get input: " + request.getParameter("searchText"));
         System.out.println("Get Option: " + queryFile);
         try {
@@ -195,7 +193,6 @@ public class LaptopServlet extends HttpServlet {
             //Get text from file
             File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
             String content = new String(Files.readAllBytes(file.toPath()));
-            System.out.println(content);
             content += getSortOption(sortOption);
                       
             //Execute SQL
