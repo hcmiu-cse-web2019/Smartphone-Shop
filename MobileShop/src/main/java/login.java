@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mvc.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,16 +11,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.RegisterBean;
-import model.RegisterDao;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "RegisterServlet_1", urlPatterns = {"/RegisterServlet_1"})
-public class RegisterServlet extends HttpServlet {
-    public RegisterServlet() {
-    }
+@WebServlet(urlPatterns = {"/login"})
+public class login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,31 +35,28 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        String fullName = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        RegisterBean registerBean = new RegisterBean();
-        //Using Java Beans - An easiest way to play with group of related data
-        registerBean.setFullName(fullName);
-        registerBean.setEmail(email);
-        registerBean.setUserName(userName);
-        registerBean.setPassword(password);
-
-        RegisterDao registerDao = new RegisterDao();
-
-        //The core Logic of the Registration application is present here. We are going to insert user data in to the database.
-        String userRegistered = registerDao.registerUser(registerBean);
-
-        if (userRegistered.equals("SUCCESS")) //On success, you can display a message to user on Home page
-        {
-            request.getRequestDispatcher("/Home.jsp").forward(request, response);
-        } else //On Failure, display a meaningful message to the User.
-        {
-            request.setAttribute("errMessage", userRegistered);
-            request.getRequestDispatcher("/Register.jsp").forward(request, response);
+        String un=request.getParameter("username");
+        String pw=request.getParameter("password");
+        try (PrintWriter out = response.getWriter()) {
+            Class.forName("com.mysql.jdbc.Driver");
+		 // loads driver
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "15253511"); // gets a new connection
+ 
+		PreparedStatement ps = c.prepareStatement("select userName,pass from student where userName=? and pass=?");
+		ps.setString(1, un);
+		ps.setString(2, pw);
+ 
+		ResultSet rs = ps.executeQuery();
+ 
+		while (rs.next()) {
+			response.sendRedirect("success.html");
+			return;
+		}
+		response.sendRedirect("error.html");
+		return;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
         }
     }
 
