@@ -12,7 +12,11 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern></url-pattern>
+<<<<<<< HEAD
+        <!--        <url-pattern>/faces/*</url-pattern>-->
+=======
 <!--        <url-pattern>/faces/*</url-pattern>-->
+>>>>>>> 7fa39392c895d9e499dcab6395593abb56a9ce05
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -22,4 +26,20 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    
+    <display-name>RegistrationMVC</display-name>
+    <welcome-file-list>
+        <welcome-file>Register.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <description></description>
+        <display-name>RegisterServlet</display-name>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.mvc.controller.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
