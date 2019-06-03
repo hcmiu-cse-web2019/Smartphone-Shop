@@ -24,7 +24,8 @@ SELECT
 	) AS 'ROM',
     
     smartphone_modifier.smartphone_model_id AS 'Model ID',
-    smartphone_modifier.smartphone_modifier_id AS 'Modifier ID'
+    smartphone_modifier.smartphone_modifier_id AS 'Modifier ID',
+    smartphone.color AS 'Color'
 
 FROM
 	smartphone_model
@@ -32,4 +33,7 @@ FROM
 LEFT JOIN smartphone_brand_series 	ON smartphone_model.brand_series_id 			= smartphone_brand_series.brand_series_id
 LEFT JOIN smartphone_brand 			ON smartphone_brand_series.smartphone_brand_id 	= smartphone_brand.smartphone_brand_id
 LEFT JOIN smartphone_modifier		ON smartphone_model.smartphone_model_id			= smartphone_modifier.smartphone_model_id
+LEFT JOIN smartphone				ON smartphone_modifier.smartphone_modifier_id	= smartphone.smartphone_modifier_id
+
+
 

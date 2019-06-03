@@ -40,6 +40,7 @@ public class SmartphoneDetail extends HttpServlet {
 
     static String modelId = "";
     static String modifierId = "";
+    static String color = "";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,10 +56,13 @@ public class SmartphoneDetail extends HttpServlet {
 
         modelId = request.getParameter("modelId");
         modifierId = request.getParameter("modifierId");
-
+        color = request.getParameter("color");
+        
+        System.out.println(color);
+        
         showListModifier(request, response, modelId);
         showListColor(request, response, modifierId);
-        showProductFullDetail(request, response, modifierId, modelId);
+        showProductFullDetail(request, response, modifierId, modelId, color);
 
         RequestDispatcher rd = request.getRequestDispatcher("SmartphoneDetail.jsp");
         rd.forward(request, response);
@@ -112,7 +116,8 @@ public class SmartphoneDetail extends HttpServlet {
             File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile1);
             String content = new String(Files.readAllBytes(file.toPath()));
             
-            content += "WHERE smartphone_modifier.smartphone_model_id ='" + modelId + "'";
+            content += "WHERE smartphone_modifier.smartphone_model_id ='" + modelId + "'"
+                    + "GROUP BY smartphone_modifier.smartphone_modifier_id";
             
             ResultSet rs = statement.executeQuery(content);
 
@@ -129,6 +134,7 @@ public class SmartphoneDetail extends HttpServlet {
                 smartphoneModifier.setRom(rs.getString(4));
                 smartphoneModifier.setModelId(rs.getString(5));
                 smartphoneModifier.setModifierId(rs.getString(6));
+                smartphoneModifier.setColor(rs.getString(7));
                 
                 smartphoneModifiers.add(smartphoneModifier);
             }
@@ -164,8 +170,6 @@ public class SmartphoneDetail extends HttpServlet {
                 smartphoneColor.setColor(rs.getString(2));
                 
                 smartphoneColors.add(smartphoneColor);
-                
-                System.out.println("COLOR:" + smartphoneColor.getColor() + " " + smartphoneColor.getImageFile());
             }
 
             request.setAttribute("smartphoneColors", smartphoneColors);
@@ -177,7 +181,7 @@ public class SmartphoneDetail extends HttpServlet {
         }
     }
     
-    public static void showProductFullDetail(HttpServletRequest request, HttpServletResponse response, String modifierId, String modelId)
+    public static void showProductFullDetail(HttpServletRequest request, HttpServletResponse response, String modifierId, String modelId, String color)
             throws ServletException, IOException {
         try {
             //Connect to database
@@ -189,7 +193,7 @@ public class SmartphoneDetail extends HttpServlet {
             File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile3);
             String content = new String(Files.readAllBytes(file.toPath()));
 
-            content += "WHERE smartphone_modifier.smartphone_modifier_id = \'" + modifierId + "\'\n"
+            content += "WHERE smartphone_modifier.smartphone_modifier_id = '" + modifierId + "' AND smartphone.color ='" + color + "'\n"
                     + "GROUP BY sim.smartphone_model_id, unlock_security.smartphone_model_id";
 
             ResultSet rs = statement.executeQuery(content);

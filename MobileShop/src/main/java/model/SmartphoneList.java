@@ -10,13 +10,16 @@ package model;
  * @author KiroHikaru
  */
 public class SmartphoneList {
+
     private String image;
     private String name;
     private String price;
     private String modelId;
     private String modifierId;
+    private String color;
 
-    public SmartphoneList() {}
+    public SmartphoneList() {
+    }
 
     public String getImage() {
         return image;
@@ -57,5 +60,12 @@ public class SmartphoneList {
     public void setModifierId(String modifierId) {
         this.modifierId = modifierId;
     }
-    
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

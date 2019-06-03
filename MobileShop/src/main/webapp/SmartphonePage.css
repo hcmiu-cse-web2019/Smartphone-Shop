@@ -106,6 +106,14 @@ a {
     cursor: pointer;
 }
 
+#product-image {
+    transition:background-position 2s;
+}
+
+#product-image:hover {
+    background-position:50% 20px, top right;
+}
+
 .container {
     display: grid;
     width: 100%;

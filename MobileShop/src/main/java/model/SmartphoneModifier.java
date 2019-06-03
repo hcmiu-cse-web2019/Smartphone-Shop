@@ -16,6 +16,7 @@ public class SmartphoneModifier {
     String ram;
     String rom;
     String modelId;
+    String color;
 
     public String getModelId() {
         return modelId;
@@ -69,4 +70,12 @@ public class SmartphoneModifier {
         this.modifierId = modifierId;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
 }

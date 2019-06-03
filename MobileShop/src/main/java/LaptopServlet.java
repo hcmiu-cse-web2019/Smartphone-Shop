@@ -1,6 +1,6 @@
+import model.LaptopSortOption;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +30,6 @@ public class LaptopServlet extends HttpServlet {
     static String queryFile = "Laptop List.sql";
     static String searchString;
     static String sortOption;
-    static Cookie[] cookies;
-    static Cookie searchTextCookie;
-    static Cookie sortOptionCookie;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,26 +43,17 @@ public class LaptopServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-  
-//        if (searchTextCookie.getName() == null){
-//            searchTextCookie = new Cookie("searchText", null);
-//            response.addCookie(searchTextCookie);
-//            System.out.println("CREATE COOKIE");
-//        }
         
         sortOption = request.getParameter("sortOption");
         searchString = request.getParameter("searchText");
 
-        OptionSelector.sortOption = sortOption;
-        OptionSelector.searchString = searchString;
-
         if (searchString != null) {
             searchProduct(request, response, searchString);
         } else {
-            showProduct(request, response);
+            showListProduct(request, response);
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("laptopPage.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("LaptopPage.jsp");
         rd.forward(request, response);
     }
 
@@ -108,6 +94,59 @@ public class LaptopServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
+    
+    public static void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Get DEFAULT OPTION: " + queryFile);
+        try {
+            //Connect to database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop", "root", "tomnisa123");
+            Statement statement = con.createStatement();
+      
+            //Get text from file
+            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            String content = new String(Files.readAllBytes(file.toPath()));
+            content += getSortOption(sortOption);
+                      
+            //Execute SQL
+            System.out.println("Executing SQL...");
+            ResultSet rs = statement.executeQuery(content);
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            List<Laptop> laptops = new ArrayList<>();
+            List<String> columnNames = new ArrayList<>();
+            int columnCount = rsmd.getColumnCount();
+
+            for (int i = 1; i <= columnCount; i++) {
+                columnNames.add(rsmd.getColumnName(i));
+            }
+
+            while (rs.next()) {
+                Laptop laptop = new Laptop();
+
+                laptop.setImage(rs.getString(1));
+                laptop.setFullName(rs.getString(2));
+                laptop.setCpuModel(rs.getString(3));
+                laptop.setRam(rs.getString(4));
+                laptop.setGpuModel(rs.getString(5));
+                laptop.setHdd(rs.getString(6));
+                laptop.setSsd(rs.getString(7));
+                laptop.setDisplay(rs.getString(8));
+                laptop.setBattery(rs.getString(9));
+                laptop.setOs(rs.getString(10));
+                laptop.setPrice(rs.getString(11));
+
+                laptops.add(laptop);
+            }
+
+            request.setAttribute("columnNames", columnNames);
+            request.setAttribute("laptops", laptops);
+
+            con.close();
+        } catch (IOException | ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void searchProduct(HttpServletRequest request, HttpServletResponse response, String searchString) throws ServletException, IOException {
         System.out.println("Get input: " + request.getParameter("searchText"));
@@ -123,7 +162,10 @@ public class LaptopServlet extends HttpServlet {
             String content = new String(Files.readAllBytes(file.toPath()));
 
             //Search Laptop
-            content += "AND CONCAT(laptopbrand.laptop_brand_name, ' ',brandseries.brand_series_name, ' ',laptop.laptop_model) LIKE '%" + searchString + "%'";
+            content +=  "AND CONCAT(laptopbrand.laptop_brand_name, ' ',"
+                    +   "           brandseries.brand_series_name, ' ',"
+                    +   "           laptop.laptop_model"
+                    +   ") LIKE '%" + searchString + "%'";
 
             System.out.println("Get Sorting Option: " + sortOption);
 
@@ -182,56 +224,5 @@ public class LaptopServlet extends HttpServlet {
         } else return " ";
     }
 
-    public static void showProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Get DEFAULT OPTION: " + queryFile);
-        try {
-            //Connect to database
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/laptop", "root", "tomnisa123");
-            Statement statement = con.createStatement();
-      
-            //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
-            String content = new String(Files.readAllBytes(file.toPath()));
-            content += getSortOption(sortOption);
-                      
-            //Execute SQL
-            System.out.println("Executing SQL...");
-            ResultSet rs = statement.executeQuery(content);
-            ResultSetMetaData rsmd = rs.getMetaData();
-
-            List<Laptop> laptops = new ArrayList<>();
-            List<String> columnNames = new ArrayList<>();
-            int columnCount = rsmd.getColumnCount();
-
-            for (int i = 1; i <= columnCount; i++) {
-                columnNames.add(rsmd.getColumnName(i));
-            }
-
-            while (rs.next()) {
-                Laptop laptop = new Laptop();
-
-                laptop.setImage(rs.getString(1));
-                laptop.setFullName(rs.getString(2));
-                laptop.setCpuModel(rs.getString(3));
-                laptop.setRam(rs.getString(4));
-                laptop.setGpuModel(rs.getString(5));
-                laptop.setHdd(rs.getString(6));
-                laptop.setSsd(rs.getString(7));
-                laptop.setDisplay(rs.getString(8));
-                laptop.setBattery(rs.getString(9));
-                laptop.setOs(rs.getString(10));
-                laptop.setPrice(rs.getString(11));
-
-                laptops.add(laptop);
-            }
-
-            request.setAttribute("columnNames", columnNames);
-            request.setAttribute("laptops", laptops);
-
-            con.close();
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            System.out.println(e);
-        }
-    }
+    
 }

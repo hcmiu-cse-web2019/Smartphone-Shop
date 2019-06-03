@@ -4,7 +4,6 @@
     Author     : KiroHikaru
 --%>
 
-<%@page import="model.SmartphoneList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Laptop"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,8 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="smartphonePage2.css">
-        <title>HC Store - Smartphone</title>
+        <link rel="stylesheet" type="text/css" href="LaptopPage.css">
+        <title>HC Store - Laptop</title>
     </head>
     <body>
         <div class="container">
@@ -74,30 +73,49 @@
                 </a>  
             </div>
             <div class="middle">
-               <form>
-                    <table align="center" cellpadding="20px" style="border: 1px; border-collapse: collapse;">
+                <form>
+                    <table align="center" cellpadding="15vh"
+                           style="border: 1px; border-collapse: collapse;">
                         <%
-                            List<SmartphoneList> smartphoneList = (ArrayList<SmartphoneList>) request.getAttribute("productList");
-                            int productCount = Integer.parseInt(request.getAttribute("productCount").toString());
+                            List<Laptop> laptops = (ArrayList<Laptop>) request.getAttribute("laptops");
+                            List<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
+                            String[] columnValues = new String[columnNames.size()];
 
-                            out.println("<tr>");
-                            for (int i = 0; i < productCount; i++) {
-                                out.println("<td>");
-                                out.println("   <a href=\"SmartphoneDetail?modelId=" + smartphoneList.get(i).getModelId() + "&modifierId=" + smartphoneList.get(i).getModifierId() + "\">");
-                                out.println("       <table align=\"center\" style=\"text-align: center;\">");
-                                out.println("           <tr><td><img style=\"width: 15vw; height: 30vh;\"src=\"IMAGE/SMARTPHONE/" + smartphoneList.get(i).getImage() + "\"></td></tr>");
-                                out.println("           <tr><th>" + smartphoneList.get(i).getName() + "</th></tr>");
-                                out.println("           <tr><td>" + smartphoneList.get(i).getPrice() + "</td></tr>");
-                                out.println("       </table>");
-                                out.println("   </a>");
-                                out.println("</td>");
+                            for (Laptop laptop : laptops) {
+                                out.println("<tr cellpadding=\"30\" style=\"border-bottom: 1px solid #ddd;\">");
+                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE/LAPTOP/" + laptop.getImage() + "\"></td>");
+                                out.println("   <td>");
+                                out.println("       <table>");
+                                out.println("           <tr align=\"center\">");
+                                out.println("               <td colspan=\"2\" style=\"font-size: 130%; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);\"><b>" + laptop.getFullName() + "</b></td>");
+                                out.println("           </tr>");
 
-                                if ((i + 1) % 4 == 0) {
-                                    out.println("</tr>");
-                                    out.println("<tr>");
+                                //Get product's specification
+                                columnValues[3] = laptop.getCpuModel();
+                                columnValues[4] = laptop.getRam();
+                                columnValues[5] = laptop.getGpuModel();
+                                columnValues[6] = laptop.getHdd();
+                                columnValues[7] = laptop.getSsd();
+                                columnValues[8] = laptop.getDisplay();
+                                columnValues[9] = laptop.getBattery();
+                                columnValues[10] = laptop.getOs();
+
+                                //Display product's specification
+                                for (int i = 3; i <= 10; i++) {
+                                    if (columnValues[i] != null) {
+                                        out.println("<tr>");
+                                        out.println("   <th>" + columnNames.get(i - 1).toString() + "&emsp; </th>");
+                                        out.println("   <td>" + columnValues[i] + "</td>");
+                                        out.println("</tr>");
+                                    }
                                 }
+
+                                out.println("       </table>");
+                                out.println("   </td>");
+                                out.println("   <td style=\"font-size: 110%;\"><b>" + laptop.getPrice() + "</b></td>");
+                                out.println("   <td><input id=\"buy-button\" type=\"submit\" value=\"Buy Now\"></td>");
+                                out.println("</tr>");
                             }
-                            out.println("</tr>");
                         %>
                    </table>  
                 </form>

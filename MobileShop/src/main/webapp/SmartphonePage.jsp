@@ -4,6 +4,7 @@
     Author     : KiroHikaru
 --%>
 
+<%@page import="model.SmartphoneList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Laptop"%>
 <%@page import="java.util.ArrayList"%>
@@ -13,9 +14,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="laptopPage2.css">
-        <script src="laptopPage.js"></script>
-        <title>HC Store - Laptop</title>
+        <link rel="stylesheet" type="text/css" href="SmartphonePage.css">
+        <title>HC Store - Smartphone</title>
     </head>
     <body>
         <div class="container">
@@ -28,7 +28,7 @@
                 </span>
             </div>
             <div class="search">
-                <form id="search-form" method="POST" action="Laptop">
+                <form id="search-form" method="POST" action="Smartphone">
                     <input type="text" id="search-text" name="searchText" placeholder="Search.." align="center">
                     <button type="submit" id="search-button" alt="Search">
                         <img src="IMAGE/ICON/Search_25px.png">
@@ -56,14 +56,15 @@
             </div>
             <div class="header-unused-2"></div>
             <div class="nav" align="center">
-                <form method="POST" action="Laptop">  
+                <form method="POST" action="Smartphone">  
                     <b>Sort by &emsp;</b>
-                    <select name="sortOption"align="center" style="padding: 0.35% 1.5% 0.35% 1.5%; font-size: 105%;">
+                    <select name="sortOption" align="center" style="padding: 0.35% 1.25% 0.35% 1.25%; font-size: 105%;">
                         <option name="sortOption" value="0">(None)</option>
                         <option name="sortOption" value="1">Price (Ascending)</option>
                         <option name="sortOption" value="2">Price (Descending)</option>
-                        <option name="sortOption" value="3">Brand (Ascending)</option>
-                        <option name="sortOption" value="4">Brand (Descending)</option>
+                        <option name="sortOption" value="3">Performance (Ascending)</option>
+                        <option name="sortOption" value="4">Performance (Descending)</option>
+                        <option name="sortOption" value="5">Date Released (Newest)</option>
                     </select>
                     <input id="apply-button" type="submit" value="Apply">
                 </form>
@@ -74,49 +75,34 @@
                 </a>  
             </div>
             <div class="middle">
-                <form>
-                    <table align="center" cellpadding="15vh"
-                           style="border: 1px; border-collapse: collapse;">
+               <form>
+                    <table align="center" cellpadding="20px" style="border: 1px; border-collapse: collapse;">
                         <%
-                            List<Laptop> laptops = (ArrayList<Laptop>) request.getAttribute("laptops");
-                            List<String> columnNames = (ArrayList<String>) request.getAttribute("columnNames");
-                            String[] columnValues = new String[columnNames.size()];
+                            List<SmartphoneList> smartphoneList = (ArrayList<SmartphoneList>) request.getAttribute("productList");
+                            int productCount = Integer.parseInt(request.getAttribute("productCount").toString());
 
-                            for (Laptop laptop : laptops) {
-                                out.println("<tr cellpadding=\"30\" style=\"border-bottom: 1px solid #ddd;\">");
-                                out.println("   <td><img style=\"width: 405px; height: 270px;\"src=\"IMAGE/LAPTOP/" + laptop.getImage() + "\"></td>");
-                                out.println("   <td>");
-                                out.println("       <table>");
-                                out.println("           <tr align=\"center\">");
-                                out.println("               <td colspan=\"2\" style=\"font-size: 130%; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);\"><b>" + laptop.getFullName() + "</b></td>");
-                                out.println("           </tr>");
-
-                                //Get product's specification
-                                columnValues[3] = laptop.getCpuModel();
-                                columnValues[4] = laptop.getRam();
-                                columnValues[5] = laptop.getGpuModel();
-                                columnValues[6] = laptop.getHdd();
-                                columnValues[7] = laptop.getSsd();
-                                columnValues[8] = laptop.getDisplay();
-                                columnValues[9] = laptop.getBattery();
-                                columnValues[10] = laptop.getOs();
-
-                                //Display product's specification
-                                for (int i = 3; i <= 10; i++) {
-                                    if (columnValues[i] != null) {
-                                        out.println("<tr>");
-                                        out.println("   <th>" + columnNames.get(i - 1).toString() + "&emsp; </th>");
-                                        out.println("   <td>" + columnValues[i] + "</td>");
-                                        out.println("</tr>");
-                                    }
-                                }
-
+                            out.println("<tr>");
+                            for (int i = 0; i < productCount; i++) {
+                                out.println("<td>");
+                                out.println("   <a href=\"SmartphoneDetail?"
+                                        + "modelId=" + smartphoneList.get(i).getModelId() 
+                                        + "&modifierId=" + smartphoneList.get(i).getModifierId() 
+                                        + "&color=" + smartphoneList.get(i).getColor()
+                                        + "\">");
+                                out.println("       <table align=\"center\" style=\"text-align: center;\">");
+                                out.println("           <tr><td><img id=\"product-image\"style=\"width: 15vw; height: 30vh;\"src=\"IMAGE/SMARTPHONE/" + smartphoneList.get(i).getImage() + "\"></td></tr>");
+                                out.println("           <tr><td><b>" + smartphoneList.get(i).getName() + "</b></td></tr>");
+                                out.println("           <tr><td style=\"color: #e22424\"><b>" + smartphoneList.get(i).getPrice() + "</b></td></tr>");
                                 out.println("       </table>");
-                                out.println("   </td>");
-                                out.println("   <td style=\"font-size: 110%;\"><b>" + laptop.getPrice() + "</b></td>");
-                                out.println("   <td><input id=\"buy-button\" type=\"submit\" value=\"Buy Now\"></td>");
-                                out.println("</tr>");
+                                out.println("   </a>");
+                                out.println("</td>");
+
+                                if ((i + 1) % 4 == 0) {
+                                    out.println("</tr>");
+                                    out.println("<tr>");
+                                }
                             }
+                            out.println("</tr>");
                         %>
                    </table>  
                 </form>

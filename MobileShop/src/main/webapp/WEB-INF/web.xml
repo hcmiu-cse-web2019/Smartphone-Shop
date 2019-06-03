@@ -12,11 +12,6 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern></url-pattern>
-<<<<<<< HEAD
-        <!--        <url-pattern>/faces/*</url-pattern>-->
-=======
-<!--        <url-pattern>/faces/*</url-pattern>-->
->>>>>>> 7fa39392c895d9e499dcab6395593abb56a9ce05
     </servlet-mapping>
     <session-config>
         <session-timeout>

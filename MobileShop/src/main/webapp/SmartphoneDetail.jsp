@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="smartphoneDetail2.css">
+        <link rel="stylesheet" type="text/css" href="SmartphoneDetail.css">
         <!--<link rel="stylesheet" type="text/css" href="header.css">-->
         <title>HC Store - Smartphone</title>
     </head>
@@ -33,7 +33,7 @@
                 </span>
             </div>
             <div class="search">
-                <form id="search-form" method="POST" action="Laptop">
+                <form id="search-form" method="POST" action="Smartphone">
                     <input type="text" id="search-text" name="searchText" placeholder="Search.." align="center">
                     <button type="submit" id="search-button" alt="Search">
                         <img src="IMAGE/ICON/Search_25px.png">
@@ -60,19 +60,7 @@
                 </a>
             </div>
             <div class="header-unused-2"></div>
-            <div class="nav" align="center">
-                <form method="POST" action="Laptop">  
-                    <b>Sort by &emsp;</b>
-                    <select name="sortOption"align="center" style="padding: 0.35% 1.5% 0.35% 1.5%; font-size: 105%;">
-                        <option name="sortOption" value="0">(None)</option>
-                        <option name="sortOption" value="1">Price (Ascending)</option>
-                        <option name="sortOption" value="2">Price (Descending)</option>
-                        <option name="sortOption" value="3">Brand (Ascending)</option>
-                        <option name="sortOption" value="4">Brand (Descending)</option>
-                    </select>
-                    <input id="apply-button" type="submit" value="Apply">
-                </form>
-            </div>
+            <div class="nav" align="center" style="padding: 1.45% 0% 1.45% 0%"></div>
             <div class="side-1" align="center">
                 <a href="http://www.saigonco-op.com.vn/?utm_source=VnExpress&utm_medium=statis&utm_campaign=C187335" target="_blank">
                     <img src="IMAGE/AD/banner1.png">
@@ -84,9 +72,9 @@
                 </a>
             </div>
             <div class="left" align="center">
-                <div style="font-size: 200%"><%= smartphoneModifiers.get(0).getName()%> (<%= smartphoneDetails.get(0).getColor() %>)</div>
+                <div style="font-size: 200%"><%= smartphoneModifiers.get(0).getName()%> (<%= smartphoneDetails.get(0).getColor()%>)</div>
 
-                <img style="width: 55%"src="IMAGE/SMARTPHONE/<%= smartphoneDetails.get(0).getImageFile() %>">
+                <img style="width: 55%"src="IMAGE/SMARTPHONE/<%= smartphoneDetails.get(0).getImageFile()%>">
 
                 <table cellspacing="0">
                     <tr>
@@ -107,15 +95,21 @@
 
             </div>
             <div class="right" align="center">
+                <div style="font-size: 125%; padding: 2% 0% 2% 0%">
+                    You are selecting version <b><%=smartphoneDetails.get(0).getRam()%> / <%=smartphoneDetails.get(0).getRom()%></b>
+                </div>
+                <div style="font-size: 125%; padding: 5% 0% 2% 0%">
+                    RAM / ROM option
+                </div>
                 <table>
                     <tr>
                         <%
                             for (SmartphoneModifier smartphoneModifier : smartphoneModifiers) {
                         %>        
                         <td>
-                            <a href="SmartphoneDetail?modelId=<%= smartphoneModifier.getModelId()%>&modifierId=<%= smartphoneModifier.getModifierId()%>">
+                            <a href="SmartphoneDetail?modelId=<%= smartphoneModifier.getModelId()%>&modifierId=<%= smartphoneModifier.getModifierId()%>&color=<%= smartphoneModifier.getColor()%>">
                                 <table cellspacing="7.5" id="modifierOptionButton">
-                                    <tr><td align="center"><%= smartphoneModifier.getRam()%> / <%= smartphoneModifier.getRom()%> </td></tr>
+                                    <tr><td align="center"><b><%= smartphoneModifier.getRam()%> / <%= smartphoneModifier.getRom()%></b></td></tr>
                                     <tr><th style="color: #e22424;"><%= smartphoneModifier.getPrice()%></th></tr>
                                 </table>
                             </a>
@@ -137,62 +131,62 @@
 
             <div class="bottom" align="center">
                 <hr>
-                <span font-size: 130%;">
-                      <b>Technical Specification</b>
-                </span>
                 <table cellpadding="3%" style="border: 1px; border-collapse: collapse;">
-                    <tr><th rowspan="6">Display</th></tr>
-                    <tr><td >Technology</td><td><%= smartphoneDetails.get(0).getDisplayType()%></td></tr>
-                    <tr><td>Resolution</td><td><%= smartphoneDetails.get(0).getResolution()%></td></tr>
-                    <tr><td>Ratio</td><td><%= smartphoneDetails.get(0).getDisplayRatio()%></td></tr>
-                    <tr><td>Pixel Density</td><td><%= smartphoneDetails.get(0).getPixelDensity()%></td></tr>
-                    <tr><td>Feature</td><td><%= smartphoneDetails.get(0).getDisplayFeature()%></td></tr>
+                    <caption style="font-size: 150%; padding: 2%">
+                        <b>Technical Specification</b>
+                    </caption>
+                    <tr><th rowspan="6" style="color: #8e5711">Display</th></tr>
+                    <tr><td><b>Technology       </b></td><td><%= smartphoneDetails.get(0).getDisplayType()%></td></tr>
+                    <tr><td><b>Resolution       </b></td><td><%= smartphoneDetails.get(0).getResolution()%></td></tr>
+                    <tr><td><b>Ratio            </b></td><td><%= smartphoneDetails.get(0).getDisplayRatio()%></td></tr>
+                    <tr><td><b>Pixel Density    </b></td><td><%= smartphoneDetails.get(0).getPixelDensity()%></td></tr>
+                    <tr><td><b>Feature          </b></td><td><%= smartphoneDetails.get(0).getDisplayFeature()%></td></tr>
 
-                    <tr><th rowspan="5">Camera</th></tr>
-                    <tr><td>Front Camera</td><td><%= smartphoneDetails.get(0).getFrontCamera()%></td></tr>
-                    <tr><td>Back Camera</td><td><%= smartphoneDetails.get(0).getBackCamera()%></td></tr>
-                    <tr><td>Feature</td><td><%= smartphoneDetails.get(0).getCameraFeature()%></td></tr>
-                    <tr><td>Video</td><td><%= smartphoneDetails.get(0).getVideoFeature()%></td></tr>
+                    <tr><th rowspan="5" style="color: #8e5711">Camera</th></tr>
+                    <tr><td><b>Front Camera     </b></td><td><%= smartphoneDetails.get(0).getFrontCamera()%></td></tr>
+                    <tr><td><b>Back Camera      </b></td><td><%= smartphoneDetails.get(0).getBackCamera()%></td></tr>
+                    <tr><td><b>Feature          </b></td><td><%= smartphoneDetails.get(0).getCameraFeature()%></td></tr>
+                    <tr><td><b>Video            </b></td><td><%= smartphoneDetails.get(0).getVideoFeature()%></td></tr>
 
-                    <tr><th rowspan="2">Operating System</th></tr>
-                    <tr><td>OS</td><td><%= smartphoneDetails.get(0).getOs()%></td></tr>
+                    <tr><th rowspan="2" style="color: #8e5711">Operating System</th></tr>
+                    <tr><td><b>OS               </b></td><td><%= smartphoneDetails.get(0).getOs()%></td></tr>
 
-                    <tr><th rowspan="4">Processor</th></tr>
-                    <tr><td>CPU</td><td><%= smartphoneDetails.get(0).getCpu()%></td></tr>
-                    <tr><td>Frequency</td><td><%= smartphoneDetails.get(0).getFrequency()%></td></tr>
-                    <tr><td>GPU</td><td><%= smartphoneDetails.get(0).getGpu()%></td></tr>
+                    <tr><th rowspan="4" style="color: #8e5711">Processor</th></tr>
+                    <tr><td><b>CPU              </b></td><td><%= smartphoneDetails.get(0).getCpu()%></td></tr>
+                    <tr><td><b>Frequency        </b></td><td><%= smartphoneDetails.get(0).getFrequency()%></td></tr>
+                    <tr><td><b>GPU              </b></td><td><%= smartphoneDetails.get(0).getGpu()%></td></tr>
 
-                    <tr><th rowspan="3">Memory</th></tr>
-                    <tr><td>RAM</td><td><%= smartphoneDetails.get(0).getRam()%></td></tr>
-                    <tr><td>ROM</td><td><%= smartphoneDetails.get(0).getRom()%></td></tr>
+                    <tr><th rowspan="3" style="color: #8e5711">Memory</th></tr>
+                    <tr><td><b>RAM              </b></td><td><%= smartphoneDetails.get(0).getRam()%></td></tr>
+                    <tr><td><b>ROM              </b></td><td><%= smartphoneDetails.get(0).getRom()%></td></tr>
 
-                    <tr><th rowspan="3">SIM</th></tr>
-                    <tr><td>SIM Slot</td><td><%= smartphoneDetails.get(0).getMemoryCard()%></td></tr>
-                    <tr><td>Type</td><td><%= smartphoneDetails.get(0).getSimType()%></td></tr>
+                    <tr><th rowspan="3" style="color: #8e5711">SIM</th></tr>
+                    <tr><td><b>SIM Slot         </b></td><td><%= smartphoneDetails.get(0).getMemoryCard()%></td></tr>
+                    <tr><td><b>Type             </b></td><td><%= smartphoneDetails.get(0).getSimType()%></td></tr>
 
-                    <tr><th rowspan="5">Connection</th></tr>
-                    <tr><td>Mobile Network</td><td><%= smartphoneDetails.get(0).getMobileNetwork()%></td></tr>
-                    <tr><td>WLAN</td><td><%= smartphoneDetails.get(0).getWlan()%></td></tr>
-                    <tr><td>Bluetooth</td><td><%= smartphoneDetails.get(0).getBluetooth()%></td></tr>
-                    <tr><td>Headphone Jack</td><td><%= smartphoneDetails.get(0).getHeadphoneJack()%></td></tr>
+                    <tr><th rowspan="5" style="color: #8e5711">Connection</th></tr>
+                    <tr><td><b>Mobile Network   </b></td><td><%= smartphoneDetails.get(0).getMobileNetwork()%></td></tr>
+                    <tr><td><b>WLAN             </b></td><td><%= smartphoneDetails.get(0).getWlan()%></td></tr>
+                    <tr><td><b>Bluetooth        </b></td><td><%= smartphoneDetails.get(0).getBluetooth()%></td></tr>
+                    <tr><td><b>Headphone Jack   </b></td><td><%= smartphoneDetails.get(0).getHeadphoneJack()%></td></tr>
 
-                    <tr><th rowspan="2">Security</th></tr>
-                    <tr><td>Screen Unlock</td><td><%= smartphoneDetails.get(0).getUnlockSecurity()%></td></tr>
+                    <tr><th rowspan="2" style="color: #8e5711">Security</th></tr>
+                    <tr><td><b>Screen Unlock    </b></td><td><%= smartphoneDetails.get(0).getUnlockSecurity()%></td></tr>
 
-                    <tr><th rowspan="7">Design</th></tr>
-                    <tr><td>Body</td><td><%= smartphoneDetails.get(0).getBodyProtection()%></td></tr>
-                    <tr><td>Frame</td><td><%= smartphoneDetails.get(0).getFrameProtection()%></td></tr>
-                    <tr><td>Screen</td><td><%= smartphoneDetails.get(0).getScreenProtection()%></td></tr>
-                    <tr><td>Size</td><td><%= smartphoneDetails.get(0).getSize()%></td></tr>
-                    <tr><td>Weight</td><td><%= smartphoneDetails.get(0).getWeight()%></td></tr>
-                    <tr><td>Feature</td><td><%= smartphoneDetails.get(0).getDesignFeature()%></td></tr>
+                    <tr><th rowspan="7" style="color: #8e5711">Design</th></tr>
+                    <tr><td><b>Body             </b></td><td><%= smartphoneDetails.get(0).getBodyProtection()%></td></tr>
+                    <tr><td><b>Frame            </b></td><td><%= smartphoneDetails.get(0).getFrameProtection()%></td></tr>
+                    <tr><td><b>Screen           </b></td><td><%= smartphoneDetails.get(0).getScreenProtection()%></td></tr>
+                    <tr><td><b>Size             </b></td><td><%= smartphoneDetails.get(0).getSize()%></td></tr>
+                    <tr><td><b>Weight           </b></td><td><%= smartphoneDetails.get(0).getWeight()%></td></tr>
+                    <tr><td><b>Feature          </b></td><td><%= smartphoneDetails.get(0).getDesignFeature()%></td></tr>
 
-                    <tr><th rowspan="6">Battery</th></tr>
-                    <tr><td>Capacity</td><td><%= smartphoneDetails.get(0).getBatteryCapacity()%></td></tr>
-                    <tr><td>Type</td><td><%= smartphoneDetails.get(0).getBatteryType()%></td></tr>
-                    <tr><td>Quick Charge</td><td><%= smartphoneDetails.get(0).getQuickCharge()%></td></tr>
-                    <tr><td>Charging Port</td><td><%= smartphoneDetails.get(0).getChargingPort()%></td></tr>
-                    <tr><td>Feature</td><td><%= smartphoneDetails.get(0).getBatteryFeature()%></td></tr>
+                    <tr><th rowspan="6" style="color: #8e5711">Battery</th></tr>
+                    <tr><td><b>Capacity         </b></td><td><%= smartphoneDetails.get(0).getBatteryCapacity()%></td></tr>
+                    <tr><td><b>Type             </b></td><td><%= smartphoneDetails.get(0).getBatteryType()%></td></tr>
+                    <tr><td><b>Quick Charge     </b></td><td><%= smartphoneDetails.get(0).getQuickCharge()%></td></tr>
+                    <tr><td><b>Charging Port    </b></td><td><%= smartphoneDetails.get(0).getChargingPort()%></td></tr>
+                    <tr><td><b>Feature          </b></td><td><%= smartphoneDetails.get(0).getBatteryFeature()%></td></tr>
                 </table>
             </div>
             <div class="footer">
