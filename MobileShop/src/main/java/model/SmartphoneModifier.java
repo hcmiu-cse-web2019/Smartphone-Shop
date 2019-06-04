@@ -11,24 +11,15 @@ package model;
  */
 public class SmartphoneModifier {
 
-    String name;
-    String price;
-    String ram;
-    String rom;
-    String modelId;
-    String color;
+    private String name;
+    private String price;
+    private String ram;
+    private String rom;
+    private String modelId;
+    private String color;
+    private String modifierId;
 
-    public String getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(String modelId) {
-        this.modelId = modelId;
-    }
-    String modifierId;
-
-    public SmartphoneModifier() {
-    }
+    public SmartphoneModifier() {}
 
     public String getName() {
         return name;
@@ -77,5 +68,12 @@ public class SmartphoneModifier {
     public void setColor(String color) {
         this.color = color;
     }
-    
+
+    public String getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
+    }
 }

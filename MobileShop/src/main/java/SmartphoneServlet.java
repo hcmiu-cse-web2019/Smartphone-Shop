@@ -27,9 +27,9 @@ import org.springframework.util.ResourceUtils;
 @WebServlet(urlPatterns = {"/Smartphone"})
 public class SmartphoneServlet extends HttpServlet {
 
-    static String queryFile = "Smartphone List.sql";
-    static String searchString;
-    static String sortOption;
+    private static final String QUERY_FILE = "Smartphone List.sql";
+    private static String searchString;
+    private static String sortOption;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -101,7 +101,7 @@ public class SmartphoneServlet extends HttpServlet {
     }// </editor-fold>
 
     public static void showListProduct(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("Get DEFAULT OPTION: " + queryFile);
+        System.out.println("Get DEFAULT OPTION: " + QUERY_FILE);
         try {
             //Connect to database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -109,7 +109,7 @@ public class SmartphoneServlet extends HttpServlet {
             Statement statement = con.createStatement();
 
             //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE);
             String content = new String(Files.readAllBytes(file.toPath()));
 
             content += "GROUP BY smartphone_modifier.smartphone_model_id\n";
@@ -156,7 +156,7 @@ public class SmartphoneServlet extends HttpServlet {
     public static void searchProduct(HttpServletRequest request, HttpServletResponse response, String searchString) throws ServletException, IOException {
         System.out.println("SEARCH SMARTPHONE");
         System.out.println("Get inputASDASD: " + searchString);
-        System.out.println("Get Option: " + queryFile);
+        System.out.println("Get Option: " + QUERY_FILE);
         try {
             //Connect to database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -164,7 +164,7 @@ public class SmartphoneServlet extends HttpServlet {
             Statement statement = con.createStatement();
 
             //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE);
             String content = new String(Files.readAllBytes(file.toPath()));
 
             //Search Laptop

@@ -34,13 +34,15 @@ import org.springframework.util.ResourceUtils;
  */
 @WebServlet(urlPatterns = {"/SmartphoneDetail"})
 public class SmartphoneDetail extends HttpServlet {
-    static String queryFile1 = "Smartphone Modifier List.sql";
-    static String queryFile2 = "Smartphone Color List.sql";
-    static String queryFile3 = "Smartphone Specification Full.sql";
 
-    static String modelId = "";
-    static String modifierId = "";
-    static String color = "";
+    private static final String QUERY_FILE_1 = "Smartphone Modifier List.sql";
+    private static final String QUERY_FILE_2 = "Smartphone Color List.sql";
+    private static final String QUERY_FILE_3 = "Smartphone Specification Full.sql";
+
+    private static String modelId = "";
+    private static String modifierId = "";
+    private static String color = "";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -57,9 +59,9 @@ public class SmartphoneDetail extends HttpServlet {
         modelId = request.getParameter("modelId");
         modifierId = request.getParameter("modifierId");
         color = request.getParameter("color");
-        
+
         System.out.println(color);
-        
+
         showListModifier(request, response, modelId);
         showListColor(request, response, modifierId);
         showProductFullDetail(request, response, modifierId, modelId, color);
@@ -113,18 +115,18 @@ public class SmartphoneDetail extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/smartphone", "root", "tomnisa123");
             Statement statement = con.createStatement();
 
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile1);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE_1);
             String content = new String(Files.readAllBytes(file.toPath()));
-            
+
             content += "WHERE smartphone_modifier.smartphone_model_id ='" + modelId + "'"
                     + "GROUP BY smartphone_modifier.smartphone_modifier_id";
-            
+
             ResultSet rs = statement.executeQuery(content);
 
             ResultSetMetaData rsmd = rs.getMetaData();
 
             List<SmartphoneModifier> smartphoneModifiers = new ArrayList<>();
-            
+
             while (rs.next()) {
                 SmartphoneModifier smartphoneModifier = new SmartphoneModifier();
 
@@ -135,7 +137,7 @@ public class SmartphoneDetail extends HttpServlet {
                 smartphoneModifier.setModelId(rs.getString(5));
                 smartphoneModifier.setModifierId(rs.getString(6));
                 smartphoneModifier.setColor(rs.getString(7));
-                
+
                 smartphoneModifiers.add(smartphoneModifier);
             }
 
@@ -147,40 +149,40 @@ public class SmartphoneDetail extends HttpServlet {
         }
     }
 
-    public static void showListColor (HttpServletRequest request, HttpServletResponse response, String modifierId){
+    public static void showListColor(HttpServletRequest request, HttpServletResponse response, String modifierId) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/smartphone", "root", "tomnisa123");
             Statement statement = con.createStatement();
 
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile2);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE_2);
             String content = new String(Files.readAllBytes(file.toPath()));
-            
+
             content += "WHERE smartphone_modifier.smartphone_modifier_id = '" + modifierId + "'";
-            
+
             ResultSet rs = statement.executeQuery(content);
             ResultSetMetaData rsmd = rs.getMetaData();
 
             List<SmartphoneColor> smartphoneColors = new ArrayList<>();
-            
+
             while (rs.next()) {
                 SmartphoneColor smartphoneColor = new SmartphoneColor();
 
                 smartphoneColor.setImageFile(rs.getString(1));
                 smartphoneColor.setColor(rs.getString(2));
-                
+
                 smartphoneColors.add(smartphoneColor);
             }
 
             request.setAttribute("smartphoneColors", smartphoneColors);
-            
+
             con.close();
 
         } catch (IOException | ClassNotFoundException | NumberFormatException | SQLException e) {
             System.out.println(e);
         }
     }
-    
+
     public static void showProductFullDetail(HttpServletRequest request, HttpServletResponse response, String modifierId, String modelId, String color)
             throws ServletException, IOException {
         try {
@@ -190,7 +192,7 @@ public class SmartphoneDetail extends HttpServlet {
             Statement statement = con.createStatement();
 
             //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile3);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE_3);
             String content = new String(Files.readAllBytes(file.toPath()));
 
             content += "WHERE smartphone_modifier.smartphone_modifier_id = '" + modifierId + "' AND smartphone.color ='" + color + "'\n"
@@ -260,7 +262,7 @@ public class SmartphoneDetail extends HttpServlet {
             smartphone.setPrice(rs.getString(35));
             smartphone.setImageFile(rs.getString(36));
             smartphone.setColor(rs.getString(37));
-            
+
             smartphoneDetails.add(smartphone);
         }
 

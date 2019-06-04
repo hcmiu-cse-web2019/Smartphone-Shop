@@ -13,7 +13,6 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,9 +26,9 @@ import org.springframework.util.ResourceUtils;
 @WebServlet(urlPatterns = {"/Laptop"})
 public class LaptopServlet extends HttpServlet {
 
-    static String queryFile = "Laptop List.sql";
-    static String searchString;
-    static String sortOption;
+    private static final String QUERY_FILE = "Laptop List.sql";
+    private static String searchString;
+    private static String sortOption;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -96,7 +95,7 @@ public class LaptopServlet extends HttpServlet {
     }
     
     public static void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Get DEFAULT OPTION: " + queryFile);
+        System.out.println("Get DEFAULT OPTION: " + QUERY_FILE);
         try {
             //Connect to database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -104,7 +103,7 @@ public class LaptopServlet extends HttpServlet {
             Statement statement = con.createStatement();
       
             //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE);
             String content = new String(Files.readAllBytes(file.toPath()));
             content += getSortOption(sortOption);
                       
@@ -150,7 +149,7 @@ public class LaptopServlet extends HttpServlet {
 
     public static void searchProduct(HttpServletRequest request, HttpServletResponse response, String searchString) throws ServletException, IOException {
         System.out.println("Get input: " + request.getParameter("searchText"));
-        System.out.println("Get Option: " + queryFile);
+        System.out.println("Get Option: " + QUERY_FILE);
         try {
             //Connect to database
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -158,7 +157,7 @@ public class LaptopServlet extends HttpServlet {
             Statement statement = con.createStatement();
 
             //Get text from file
-            File file = ResourceUtils.getFile("classpath:SQL File/" + queryFile);
+            File file = ResourceUtils.getFile("classpath:SQL File/" + QUERY_FILE);
             String content = new String(Files.readAllBytes(file.toPath()));
 
             //Search Laptop
